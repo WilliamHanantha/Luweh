@@ -13,7 +13,7 @@ Proyek ini dikerjakan untuk mata kuliah Perancangan dan Pengembangan Perangkat L
 ## Teknologi
 - Laravel: 12
 - PHP: 8.2
-- Database: SQLite / MySQL
+- Database: MySQL
 
 ## Cara Menjalankan
 1. Clone repositori ini lalu masuk ke foldernya.
