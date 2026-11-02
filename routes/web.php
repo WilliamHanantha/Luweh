@@ -9,3 +9,13 @@ Route::get('/', function () {
 Route::get('/customer-home', function () {
     return view('customer-home');
 });
+
+Route::get('/order-activity', function () {
+    return view('order');
+});
+
+// Page 2: Food Hero
+Route::get('/food-hero', function () {
+    return view('foodhero');
+});
+
