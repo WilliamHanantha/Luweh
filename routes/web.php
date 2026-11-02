@@ -7,5 +7,9 @@ Route::get('/', function () {
 });
 
 Route::get('/customer-home', function () {
-    return view('customer-home');
+    return view('customer.customer-home');
+});
+
+Route::get('/your-menu', function () {
+    return view('fnb-owner.yourMenu');
 });
