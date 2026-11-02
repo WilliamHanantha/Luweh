@@ -13,3 +13,13 @@ Route::get('/customer-home', function () {
 Route::get('/your-menu', function () {
     return view('fnb-owner.yourMenu');
 });
+
+Route::get('/order-activity', function () {
+    return view('order');
+});
+
+// Page 2: Food Hero
+Route::get('/food-hero', function () {
+    return view('foodhero');
+});
+
