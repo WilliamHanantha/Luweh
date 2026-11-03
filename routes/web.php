@@ -23,3 +23,7 @@ Route::get('/food-hero', function () {
     return view('foodhero');
 });
 
+
+Route::get('/milestone', function () {
+    return view('milestone');
+});
