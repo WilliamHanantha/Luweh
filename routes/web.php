@@ -23,6 +23,10 @@ Route::get('/food-hero', function () {
     return view('courier.foodhero');
 });
 
+Route::get('/milestone', function () {
+    return view('milestone');
+});
+  
 Route::get('/redeem-points', function () {
     return view('courier.redeempoints');
 });
