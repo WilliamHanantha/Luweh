@@ -15,15 +15,14 @@ Route::get('/your-menu', function () {
 });
 
 Route::get('/order-activity', function () {
-    return view('order');
+    return view('fnb-owner.order');
 });
 
 // Page 2: Food Hero
 Route::get('/food-hero', function () {
-    return view('foodhero');
+    return view('courier.foodhero');
 });
 
 Route::get('/redeem-points', function () {
     return view('courier.redeempoints');
 });
-
