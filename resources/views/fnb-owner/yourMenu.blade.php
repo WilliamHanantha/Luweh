@@ -11,7 +11,9 @@
 <body>
     <h1>Your Menu</h1>
     <p>This is a simple menu page.</p>
-    <button>Add Item</button>
+    <a type="button" href="fnb-owner/create" class="btn btn-primary">
+        Add Menu
+    </a>
 </body>
 
 </html>
