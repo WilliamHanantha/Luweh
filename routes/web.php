@@ -6,9 +6,13 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/customer-home', function () {
-    return view('customer.customer-home');
-});
+// UC 01
+Route::get('/customer-home', [App\Http\Controllers\RestoranController::class, 'index']);
+
+// UC 02
+Route::get('/order-now', [App\Http\Controllers\OrderNowController::class, 'index']);
+Route::post('/order-now/item/{id}/tambah', [App\Http\Controllers\OrderNowController::class, 'tambah']);
+Route::post('/order-now/item/{id}/kurang', [App\Http\Controllers\OrderNowController::class, 'kurang']);
 
 Route::get('/your-menu', function () {
     return view('fnb-owner.yourMenu');
@@ -33,7 +37,7 @@ Route::get('/food-hero', function () {
 Route::get('/milestone', function () {
     return view('milestone');
 });
-  
+
 Route::get('/redeem-points', function () {
     return view('courier.redeempoints');
 });
