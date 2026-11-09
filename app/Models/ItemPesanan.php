@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ItemPesanan extends Model
 {
-    protected $fillable = ['pesanan_id', 'daftar_makanan_id', 'kuantitas'];
+    protected $fillable = [
+        'pesanan_id',
+        'daftar_makanan_id',
+        'kuantitas',
+        'status_driver',
+    ];
 
     public function pesanan()
     {
