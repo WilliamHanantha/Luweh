@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title') - LUWEH</title>
 
@@ -28,9 +29,40 @@
     @include('components.sidebar')
 
     <!-- PAGE TITLE -->
-    <section class="page-header ">
-        <div class="d-flex align-items-center">
-            <h2 class="">@yield('page-heading')</h2>
+    <section class="page-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                @php
+                    $hasBack = View::hasSection('back-url') || request()->is('*fnb-owner/history*');
+                    $backUrl = View::hasSection('back-url') ? trim(View::yieldContent('back-url')) : url('/fnb-owner/order');
+                @endphp
+
+                @if ($hasBack)
+                    <a href="{{ $backUrl }}" class="header-back-btn" aria-label="Kembali ke Order" title="Kembali ke Order">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" class="back-icon">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                    </a>
+                @endif
+
+                <div>
+                    @if (View::hasSection('page-subtitle'))
+                        <div class="page-subtitle">@yield('page-subtitle')</div>
+                    @endif
+                    <h2>@yield('page-heading')</h2>
+                </div>
+            </div>
+
+            {{-- Logo / Tombol History: hanya tampil pada page fnb owner bagian order, hidden untuk semua page lain --}}
+            @php
+                $showHistory = request()->is('*fnb-owner/order*') || (View::hasSection('show-history') && trim(View::yieldContent('show-history')) === 'true');
+            @endphp
+            <div class="header-action {{ $showHistory ? '' : 'd-none' }}">
+                <a href="{{ url('/fnb-owner/history') }}" class="header-history-btn" aria-label="History" title="History">
+                    <img src="{{ asset('assets/images/history.svg') }}" alt="History" class="history-icon">
+                </a>
+            </div>
         </div>
     </section>
 
