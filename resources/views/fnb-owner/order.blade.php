@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>LUWEH</title>
-</head>
+@section('title', 'Order')
 
-<body>
-    <h1>LUWEH</h1>
+@section('page-heading', 'Order')
 
-    <h2>Order</h2>
+@section('content')
 
     <p>Order Number: 001</p>
     <p>Menu: Nasi Goreng</p>
@@ -37,6 +30,5 @@
     <p>Price: Rp10.000</p>
 
     <button>Picked Up by Driver</button>
-</body>
 
-</html>
+@endsection

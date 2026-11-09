@@ -34,6 +34,11 @@ class DaftarMakananController extends Controller
         return view('fnb-owner.createMakanan');
     }
 
+    public function order()
+    {
+        return view('fnb-owner.order');
+    }
+
     public function destroy($id)
     {
         $makanan = DaftarMakanan::findOrFail($id);

@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Your Menu</title>
-</head>
+@section('title', 'Your Menu')
 
-<body>
-    <h1>Your Menu</h1>
-    <p>This is a simple menu page.</p>
-    <a type="button" href="fnb-owner/create" class="btn btn-primary">
+@section('page-heading', 'Your Menu')
+
+@section('content')
+
+    <h3>Daftar Makanan</h3>
+
+    <button class="btn btn-warning">
         Add Menu
-    </a>
-</body>
+    </button>
 
-</html>
+@endsection

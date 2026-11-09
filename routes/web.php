@@ -20,9 +20,10 @@ Route::get('/your-menu', function () {
 
 Route::group(['prefix' => 'fnb-owner'], function () {
     Route::get('/', [App\Http\Controllers\DaftarMakananController::class, 'index']);
-    Route::post('/', [App\Http\Controllers\DaftarMakananController::class, 'store']);
+    Route::post('/store', [App\Http\Controllers\DaftarMakananController::class, 'store']);
     Route::get('/create', [App\Http\Controllers\DaftarMakananController::class, 'create']);
     Route::delete('/{id}', [App\Http\Controllers\DaftarMakananController::class, 'destroy']);
+    Route::get('/order', [App\Http\Controllers\DaftarMakananController::class, 'order']);
 });
 
 Route::get('/order-activity', function () {
