@@ -23,7 +23,7 @@ class PesananSeeder extends Seeder
         }
 
         $pesanan = Pesanan::firstOrCreate(
-            ['status' => 'Keranjang'],
+            ['status' => 'new'],
             ['restoran_id' => Restoran::first()?->id]
         );
 

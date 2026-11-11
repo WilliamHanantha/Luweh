@@ -10,7 +10,6 @@ class ItemPesanan extends Model
         'pesanan_id',
         'daftar_makanan_id',
         'kuantitas',
-        'status_driver',
     ];
 
     public function pesanan()

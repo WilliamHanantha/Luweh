@@ -67,15 +67,13 @@ class CourierPesananSeeder extends Seeder
             $restoranMap[$r['nama_resto']] = $resto;
         }
 
-        // 5 Pesanan dummy untuk Food Hero
+        // 5 Pesanan dummy untuk Food Hero & Activity
         $pesananDummy = [
             [
                 'resto'             => 'Nasi Goreng Bu Ida',
                 'nama_penerima'     => 'Ahmad Fauzi',
                 'alamat_pengiriman' => 'Jl. Kepuh Tegalsari Timur No. 1',
-                'gambar_makanan'    => 'assets/images/nasi-goreng.png',
-                'status'            => 'on-going',
-                'status_courier'    => 'on-going',
+                'status'            => 'picked up',
                 'metode_pengiriman' => 'Delivery',
                 'ongkir'            => 5000,
                 'total_harga'       => 25000,
@@ -84,9 +82,7 @@ class CourierPesananSeeder extends Seeder
                 'resto'             => 'Sinar Djaya Resto',
                 'nama_penerima'     => 'Budi Santoso',
                 'alamat_pengiriman' => 'Jl. Dukuh Kupang No. 7',
-                'gambar_makanan'    => 'assets/images/sinar-djaya.png',
-                'status'            => 'on-going',
-                'status_courier'    => 'on-going',
+                'status'            => 'picked up',
                 'metode_pengiriman' => 'Delivery',
                 'ongkir'            => 5000,
                 'total_harga'       => 35000,
@@ -95,9 +91,7 @@ class CourierPesananSeeder extends Seeder
                 'resto'             => 'Warung Pak Harto',
                 'nama_penerima'     => 'Siti Rahayu',
                 'alamat_pengiriman' => 'Jl. Nginden Semolo No. 15',
-                'gambar_makanan'    => 'assets/images/nasi-goreng-card.png',
-                'status'            => 'on-going',
-                'status_courier'    => 'on-going',
+                'status'            => 'picked up',
                 'metode_pengiriman' => 'Delivery',
                 'ongkir'            => 5000,
                 'total_harga'       => 20000,
@@ -106,9 +100,7 @@ class CourierPesananSeeder extends Seeder
                 'resto'             => 'Royal Kitchen',
                 'nama_penerima'     => 'Dewi Lestari',
                 'alamat_pengiriman' => 'Jl. Raya ITS Blok C No. 3',
-                'gambar_makanan'    => 'assets/images/nasi-goreng.png',
-                'status'            => 'on-going',
-                'status_courier'    => 'on-going',
+                'status'            => 'on-delivery',
                 'metode_pengiriman' => 'Delivery',
                 'ongkir'            => 5000,
                 'total_harga'       => 45000,
@@ -117,9 +109,7 @@ class CourierPesananSeeder extends Seeder
                 'resto'             => 'Ayam Bakar Wong Solo',
                 'nama_penerima'     => 'Eko Prasetyo',
                 'alamat_pengiriman' => 'Jl. Arif Rahman Hakim No. 12',
-                'gambar_makanan'    => 'assets/images/nasi-goreng.png',
-                'status'            => 'on-going',
-                'status_courier'    => 'on-going',
+                'status'            => 'completed',
                 'metode_pengiriman' => 'Delivery',
                 'ongkir'            => 5000,
                 'total_harga'       => 30000,
@@ -147,9 +137,7 @@ class CourierPesananSeeder extends Seeder
                 [
                     'restoran_id'       => $resto->id,
                     'alamat_pengiriman' => $pData['alamat_pengiriman'],
-                    'gambar_makanan'    => $pData['gambar_makanan'],
                     'status'            => $pData['status'],
-                    'status_courier'    => $pData['status_courier'],
                     'metode_pengiriman' => $pData['metode_pengiriman'],
                     'ongkir'            => $pData['ongkir'],
                     'total_harga'       => $pData['total_harga'],
@@ -160,9 +148,7 @@ class CourierPesananSeeder extends Seeder
             $pesanan->update([
                 'restoran_id'       => $resto->id,
                 'alamat_pengiriman' => $pData['alamat_pengiriman'],
-                'gambar_makanan'    => $pData['gambar_makanan'],
                 'status'            => $pData['status'],
-                'status_courier'    => $pData['status_courier'],
                 'metode_pengiriman' => $pData['metode_pengiriman'],
                 'ongkir'            => $pData['ongkir'],
                 'total_harga'       => $pData['total_harga'],
@@ -175,8 +161,7 @@ class CourierPesananSeeder extends Seeder
                     'daftar_makanan_id' => $sampleMakanan->id,
                 ],
                 [
-                    'kuantitas'     => 1,
-                    'status_driver' => 'belum_diambil_driver',
+                    'kuantitas' => 1,
                 ]
             );
         }

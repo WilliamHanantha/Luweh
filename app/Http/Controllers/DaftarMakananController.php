@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\DaftarMakanan;
-use App\Models\ItemPesanan;
 use Illuminate\Http\Request;
 
 class DaftarMakananController extends Controller
@@ -97,46 +96,6 @@ class DaftarMakananController extends Controller
         $makanan->update($validatedData);
 
         return redirect('/your-menu')->with('success', 'Menu "' . $makanan->nama_makanan . '" berhasil diperbarui!');
-    }
-
-    /**
-     * Halaman Order: tampilkan item pesanan yang BELUM diambil driver,
-     * lengkap dengan data makanan (nama, harga, gambar) dari daftar_makanans.
-     */
-    public function order()
-    {
-        $items = ItemPesanan::with('daftarMakanan')
-            ->where('status_driver', 'belum_diambil_driver')
-            ->get();
-
-        return view('fnb-owner.order', compact('items'));
-    }
-
-    /**
-     * Halaman History: tampilkan item pesanan yang SUDAH diambil driver.
-     */
-    public function history()
-    {
-        $items = ItemPesanan::with('daftarMakanan')
-            ->where('status_driver', 'sudah_diambil_driver')
-            ->get();
-
-        return view('fnb-owner.history', compact('items'));
-    }
-
-    /**
-     * AJAX / POST: update status_driver item pesanan menjadi 'sudah_diambil_driver'.
-     */
-    public function updateStatusDriver(Request $request, $id)
-    {
-        $item = ItemPesanan::findOrFail($id);
-        $item->update(['status_driver' => 'sudah_diambil_driver']);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Status pesanan berhasil diperbarui.',
-            'item_id' => $item->id,
-        ]);
     }
 
     public function toggleStatus($id)

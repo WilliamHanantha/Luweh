@@ -28,10 +28,10 @@ Route::group(['prefix' => 'fnb-owner'], function () {
     Route::post('/{id}/confirm-quantity', [App\Http\Controllers\DaftarMakananController::class, 'confirmQuantity'])->name('makanan.confirm-quantity');
     Route::post('/{id}/toggle-status', [App\Http\Controllers\DaftarMakananController::class, 'toggleStatus'])->name('makanan.toggle-status');
     Route::delete('/{id}', [App\Http\Controllers\DaftarMakananController::class, 'destroy'])->name('makanan.destroy');
-    Route::get('/order', [App\Http\Controllers\DaftarMakananController::class, 'order'])->name('fnb-owner.order');
-    Route::get('/history', [App\Http\Controllers\DaftarMakananController::class, 'history'])->name('fnb-owner.history');
-    // AJAX: tandai item pesanan sudah diambil driver
-    Route::post('/order/item/{id}/pickup', [App\Http\Controllers\DaftarMakananController::class, 'updateStatusDriver'])->name('fnb-owner.order.pickup');
+    Route::get('/order', [App\Http\Controllers\PesananController::class, 'order'])->name('fnb-owner.order');
+    Route::get('/history', [App\Http\Controllers\PesananController::class, 'history'])->name('fnb-owner.history');
+    // AJAX: tandai pesanan sudah diambil driver (ubah status pesanan menjadi 'picked up')
+    Route::post('/order/pesanan/{id}/pickup', [App\Http\Controllers\PesananController::class, 'updateStatusDriver'])->name('fnb-owner.order.pickup');
 });
 
 
@@ -46,6 +46,8 @@ Route::group(['prefix' => 'courier'], function () {
     Route::post('/order/{id}/pick', [\App\Http\Controllers\CourierController::class, 'pickOrder'])->name('courier.order.pick');
 
     Route::get('/activity', [\App\Http\Controllers\CourierController::class, 'activity'])->name('courier.activity');
+    Route::get('/activity/history', [\App\Http\Controllers\CourierController::class, 'history'])->name('courier.history');
+    Route::get('/history', [\App\Http\Controllers\CourierController::class, 'history']);
     Route::post('/order/{id}/deliver', [\App\Http\Controllers\CourierController::class, 'deliverOrder'])->name('courier.order.deliver');
 
     Route::get('/redeem-points', function () {

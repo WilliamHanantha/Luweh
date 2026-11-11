@@ -8,16 +8,13 @@ use Illuminate\Http\Request;
 class CourierController extends Controller
 {
     /**
-     * Halaman Food Hero: hanya menampilkan pesanan yang statusnya 'on-going'.
+     * Halaman Food Hero: hanya menampilkan pesanan yang statusnya 'picked up' (siap diantar).
      */
     public function foodHero()
     {
         $pesanans = Pesanan::with(['restoran', 'itemPesanans.daftarMakanan'])
             ->whereNotNull('nama_penerima')
-            ->where(function ($query) {
-                $query->where('status_courier', 'on-going')
-                      ->orWhere('status', 'on-going');
-            })
+            ->where('status', 'picked up')
             ->orderBy('id', 'asc')
             ->get();
 
@@ -32,13 +29,7 @@ class CourierController extends Controller
     {
         $pesanan = Pesanan::findOrFail($id);
         $pesanan->update([
-            'status'         => 'on-delivery',
-            'status_courier' => 'on-delivery',
-        ]);
-
-        // Sinkronkan status item pesanan dengan driver
-        $pesanan->itemPesanans()->update([
-            'status_driver' => 'sudah_diambil_driver',
+            'status' => 'on-delivery',
         ]);
 
         if ($request->expectsJson() || $request->ajax()) {
@@ -53,43 +44,52 @@ class CourierController extends Controller
     }
 
     /**
-     * Halaman Activity: menampilkan pesanan kurir yang sedang diantar ('on-delivery')
-     * dan yang sudah selesai ('finished').
+     * Halaman Activity: menampilkan pesanan kurir yang sedang aktif diantar ('on-delivery').
      */
     public function activity()
     {
         $pesanans = Pesanan::with(['restoran', 'itemPesanans.daftarMakanan'])
             ->whereNotNull('nama_penerima')
-            ->where(function ($query) {
-                $query->whereIn('status_courier', ['on-delivery', 'finished'])
-                      ->orWhereIn('status', ['on-delivery', 'finished']);
-            })
-            ->orderByRaw("CASE WHEN status_courier = 'on-delivery' OR status = 'on-delivery' THEN 1 ELSE 2 END")
-            ->orderBy('updated_at', 'desc')
+            ->where('status', 'on-delivery')
+            ->orderByDesc('updated_at')
             ->get();
 
         return view('courier.activity', compact('pesanans'));
     }
 
     /**
-     * Courier menyelesaikan pesanan: status berubah menjadi 'finished'.
+     * Courier menyelesaikan pengiriman: status berubah menjadi 'completed'
+     * dan pesanan masuk ke riwayat (History).
      */
     public function deliverOrder(Request $request, $id)
     {
         $pesanan = Pesanan::findOrFail($id);
         $pesanan->update([
-            'status'         => 'finished',
-            'status_courier' => 'finished',
+            'status' => 'completed',
         ]);
 
         if ($request->expectsJson() || $request->ajax()) {
             return response()->json([
                 'success' => true,
                 'message' => 'Pesanan #' . $pesanan->id . ' telah sampai dan selesai diantar!',
-                'status'  => 'finished',
+                'status'  => 'completed',
             ]);
         }
 
         return redirect()->route('courier.activity')->with('success', 'Pesanan #' . $pesanan->id . ' telah sampai dan selesai diantar!');
+    }
+
+    /**
+     * Halaman History kurir: menampilkan pesanan yang sudah selesai diantar ('completed').
+     */
+    public function history()
+    {
+        $pesanans = Pesanan::with(['restoran', 'itemPesanans.daftarMakanan'])
+            ->whereNotNull('nama_penerima')
+            ->whereIn('status', ['completed', 'complete', 'finished'])
+            ->orderByDesc('updated_at')
+            ->get();
+
+        return view('courier.history', compact('pesanans'));
     }
 }

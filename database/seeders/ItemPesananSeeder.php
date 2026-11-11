@@ -11,9 +11,8 @@ use Illuminate\Database\Seeder;
 class ItemPesananSeeder extends Seeder
 {
     /**
-     * Seed 5 item pesanan dummy dengan status_driver 'belum_diambil_driver'.
-     * Item pertama (Order #1) sudah ada dari PesananSeeder; seeder ini
-     * membuat pesanan baru khusus untuk halaman Order FnB Owner.
+     * Seed pesanan dummy dengan status 'new' untuk halaman Order FnB Owner.
+     * Setiap pesanan memiliki beberapa item makanan.
      */
     public function run(): void
     {
@@ -64,10 +63,10 @@ class ItemPesananSeeder extends Seeder
         // Pastikan restoran ada
         $restoran = Restoran::first();
 
-        // Buat satu pesanan induk untuk semua item dummy ini
+        // Buat satu pesanan induk untuk semua item dummy ini dengan status 'new'
         $pesanan = Pesanan::create([
             'restoran_id'       => $restoran?->id,
-            'status'            => 'Diproses',
+            'status'            => 'new',
             'metode_pengiriman' => 'Delivery',
             'alamat_pengiriman' => 'Jl. Contoh No. 1, Surabaya',
             'ongkir'            => 5000,
@@ -91,10 +90,9 @@ class ItemPesananSeeder extends Seeder
             $kuantitas = $index + 1; // 1, 2, 3, 4, 5 — agar bervariasi
 
             ItemPesanan::create([
-                'pesanan_id'       => $pesanan->id,
-                'daftar_makanan_id'=> $makanan->id,
-                'kuantitas'        => $kuantitas,
-                'status_driver'    => 'belum_diambil_driver',
+                'pesanan_id'        => $pesanan->id,
+                'daftar_makanan_id' => $makanan->id,
+                'kuantitas'         => $kuantitas,
             ]);
 
             $totalHarga += $makanan->harga * $kuantitas;
