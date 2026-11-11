@@ -22,10 +22,12 @@ Route::group(['prefix' => 'fnb-owner'], function () {
     Route::get('/', [App\Http\Controllers\DaftarMakananController::class, 'index']);
     Route::post('/store', [App\Http\Controllers\DaftarMakananController::class, 'store']);
     Route::get('/create', [App\Http\Controllers\DaftarMakananController::class, 'create']);
+    Route::get('/{id}/edit', [App\Http\Controllers\DaftarMakananController::class, 'edit'])->name('makanan.edit');
+    Route::put('/{id}', [App\Http\Controllers\DaftarMakananController::class, 'update'])->name('makanan.update');
     Route::get('/{id}/set-quantity', [App\Http\Controllers\DaftarMakananController::class, 'setQuantity'])->name('makanan.set-quantity');
     Route::post('/{id}/confirm-quantity', [App\Http\Controllers\DaftarMakananController::class, 'confirmQuantity'])->name('makanan.confirm-quantity');
     Route::post('/{id}/toggle-status', [App\Http\Controllers\DaftarMakananController::class, 'toggleStatus'])->name('makanan.toggle-status');
-    Route::delete('/{id}', [App\Http\Controllers\DaftarMakananController::class, 'destroy']);
+    Route::delete('/{id}', [App\Http\Controllers\DaftarMakananController::class, 'destroy'])->name('makanan.destroy');
     Route::get('/order', [App\Http\Controllers\DaftarMakananController::class, 'order'])->name('fnb-owner.order');
     Route::get('/history', [App\Http\Controllers\DaftarMakananController::class, 'history'])->name('fnb-owner.history');
     // AJAX: tandai item pesanan sudah diambil driver
