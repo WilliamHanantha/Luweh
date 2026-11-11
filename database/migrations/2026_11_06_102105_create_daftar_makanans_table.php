@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('daftar_makanans', function (Blueprint $table) {
             $table->id();
             $table->string('nama_makanan');
+            $table->string('image')->nullable();
             $table->string('deskripsi');
             $table->decimal('harga', 10, 2);
-            $table->integer('stok');
+            $table->integer('stok')->default(0);
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

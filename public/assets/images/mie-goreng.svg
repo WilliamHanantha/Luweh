@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="mgBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff8ed" />
+      <stop offset="100%" stop-color="#f5e6cb" />
+    </linearGradient>
+    <linearGradient id="plate" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f0efe8" />
+    </linearGradient>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#553805" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <rect width="120" height="120" rx="16" fill="url(#mgBg)" />
+  <circle cx="60" cy="62" r="44" fill="url(#plate)" stroke="#dedcd0" stroke-width="2" filter="url(#sh)" />
+  <circle cx="60" cy="62" r="36" fill="#fefdfa" stroke="#eae8dc" stroke-width="1.5" />
+
+  <!-- Noodle mound -->
+  <ellipse cx="60" cy="64" rx="27" ry="21" fill="#c48a3f" />
+  
+  <!-- Noodle strands -->
+  <path d="M40 60 Q50 50 60 62 T80 60" stroke="#f2b55a" stroke-width="3" stroke-linecap="round" fill="none" />
+  <path d="M42 66 Q52 75 62 64 T82 68" stroke="#df9f3c" stroke-width="3" stroke-linecap="round" fill="none" />
+  <path d="M45 57 Q55 67 68 56 T78 64" stroke="#e8a846" stroke-width="2.5" stroke-linecap="round" fill="none" />
+  <path d="M38 64 Q50 58 60 70 T75 58" stroke="#f5be66" stroke-width="2.5" stroke-linecap="round" fill="none" />
+  <path d="M48 70 Q60 60 72 71" stroke="#d49232" stroke-width="3" stroke-linecap="round" fill="none" />
+
+  <!-- Veggies & Scallions -->
+  <rect x="42" y="52" width="8" height="3" rx="1.5" fill="#588c24" transform="rotate(25 46 53)" />
+  <rect x="70" y="60" width="9" height="3" rx="1.5" fill="#4d7c1e" transform="rotate(-15 74 61)" />
+  <rect x="54" y="68" width="8" height="3" rx="1.5" fill="#679e2c" transform="rotate(40 58 69)" />
+
+  <!-- Sliced Boiled Egg -->
+  <ellipse cx="60" cy="54" rx="11" ry="8.5" fill="#ffffff" filter="url(#sh)" transform="rotate(-10 60 54)" />
+  <circle cx="60" cy="54" r="5" fill="#fabc22" />
+  <circle cx="58.5" cy="52.5" r="1.5" fill="#fff" opacity="0.8" />
+
+  <!-- Sliced Chili / Tomato -->
+  <ellipse cx="74" cy="53" rx="4" ry="2.5" fill="#d93829" transform="rotate(20 74 53)" />
+  <ellipse cx="46" cy="65" rx="3.5" ry="2.5" fill="#d93829" transform="rotate(-25 46 65)" />
+
+  <!-- Steam -->
+  <path d="M55 35 Q58 29 55 24" stroke="#b59972" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.5" />
+  <path d="M65 33 Q62 27 65 21" stroke="#b59972" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.5" />
+</svg>

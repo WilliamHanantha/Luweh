@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5f7ee" />
+      <stop offset="100%" stop-color="#e8edd8" />
+    </linearGradient>
+    <linearGradient id="plateGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f0f2ea" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#405510" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- Background container -->
+  <rect width="120" height="120" rx="16" fill="url(#bgGrad)" />
+
+  <!-- Plate -->
+  <circle cx="60" cy="62" r="44" fill="url(#plateGrad)" stroke="#dbe3cb" stroke-width="2" filter="url(#shadow)" />
+  <circle cx="60" cy="62" r="36" fill="#fcfdfa" stroke="#e8eedd" stroke-width="1.5" />
+
+  <!-- Food Bowl / Mound (Nasi Goreng / Meal base) -->
+  <ellipse cx="60" cy="63" rx="27" ry="22" fill="#cda365" />
+  <ellipse cx="60" cy="61" rx="25" ry="19" fill="#dfb576" />
+  
+  <!-- Food details: Rice texture dots -->
+  <circle cx="53" cy="57" r="1.5" fill="#bf9557" />
+  <circle cx="64" cy="55" r="1.5" fill="#bf9557" />
+  <circle cx="58" cy="62" r="1.5" fill="#bf9557" />
+  <circle cx="69" cy="63" r="1.5" fill="#bf9557" />
+  <circle cx="51" cy="66" r="1.5" fill="#bf9557" />
+
+  <!-- Greens / Veggies / Garnish -->
+  <path d="M42 58 C38 52, 45 46, 50 50 C46 54, 44 58, 42 58 Z" fill="#698f24" />
+  <path d="M45 52 C48 48, 54 50, 52 55 Z" fill="#7fa632" />
+  <path d="M70 70 C75 74, 80 68, 76 64 C72 66, 71 69, 70 70 Z" fill="#587a1d" />
+
+  <!-- Fried Egg / Topping -->
+  <ellipse cx="62" cy="54" rx="10" ry="8" fill="#ffffff" filter="url(#shadow)" />
+  <circle cx="62" cy="54" r="5" fill="#fabc22" />
+  <circle cx="60.5" cy="52.5" r="1.5" fill="#fff" opacity="0.8" />
+
+  <!-- Tomato / Chili slices -->
+  <ellipse cx="73" cy="56" rx="4" ry="2.5" fill="#e05238" transform="rotate(-20 73 56)" />
+  <ellipse cx="49" cy="68" rx="4" ry="2.5" fill="#e05238" transform="rotate(30 49 68)" />
+
+  <!-- Steam curves -->
+  <path d="M54 36 Q56 31 54 26" stroke="#9bb173" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.6" />
+  <path d="M62 34 Q65 29 62 23" stroke="#9bb173" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.6" />
+  <path d="M70 37 Q68 32 71 27" stroke="#9bb173" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.6" />
+</svg>

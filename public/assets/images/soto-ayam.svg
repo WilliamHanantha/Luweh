@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="soBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffbee" />
+      <stop offset="100%" stop-color="#fef3cc" />
+    </linearGradient>
+    <linearGradient id="bowl" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#e2e6d8" />
+    </linearGradient>
+    <filter id="soSh" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#4a4010" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <rect width="120" height="120" rx="16" fill="url(#soBg)" />
+  <!-- Bowl -->
+  <circle cx="60" cy="62" r="43" fill="url(#bowl)" stroke="#cdd4bf" stroke-width="2" filter="url(#soSh)" />
+  <!-- Turmeric Soto Broth (Kuah Kuning) -->
+  <circle cx="60" cy="62" r="36" fill="#e8ba23" />
+  <circle cx="60" cy="62" r="34" fill="#f0c638" />
+
+  <!-- White vermicelli (Bihun) -->
+  <path d="M42 60 Q50 68 60 58 Q70 68 76 60" stroke="#fcfdfa" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.85" />
+  <path d="M45 66 Q55 58 65 67 T77 64" stroke="#fcfdfa" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.85" />
+
+  <!-- Shredded Chicken (Ayam Suwir) -->
+  <path d="M48 55 Q56 50 64 54 Q58 60 50 58 Z" fill="#cf9a57" />
+  <path d="M52 68 Q60 62 67 66 Q62 72 54 70 Z" fill="#b8833f" />
+
+  <!-- Half Boiled Egg -->
+  <ellipse cx="68" cy="52" rx="9" ry="7" fill="#ffffff" filter="url(#soSh)" />
+  <circle cx="68" cy="52" r="4" fill="#fabc22" />
+
+  <!-- Fresh Lime slice (Jeruk Nipis) -->
+  <path d="M37 60 A10 10 0 0 1 47 70 L37 70 Z" fill="#75a828" />
+  <path d="M38 61 A8 8 0 0 1 46 69 L38 69 Z" fill="#c0e274" />
+
+  <!-- Fried Shallots / Koya & Celery -->
+  <circle cx="58" cy="58" r="1.5" fill="#874719" />
+  <circle cx="62" cy="64" r="1.5" fill="#874719" />
+  <circle cx="55" cy="63" r="1.5" fill="#874719" />
+  <circle cx="59" cy="52" r="1.8" fill="#4d7c1e" />
+  <circle cx="65" cy="59" r="1.8" fill="#4d7c1e" />
+
+  <!-- Steam -->
+  <path d="M56 34 Q58 28 55 23" stroke="#bfa35b" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.5" />
+  <path d="M64 32 Q62 26 64 20" stroke="#bfa35b" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.5" />
+</svg>

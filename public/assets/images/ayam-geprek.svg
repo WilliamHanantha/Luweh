@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="agBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff5f5" />
+      <stop offset="100%" stop-color="#fee8e8" />
+    </linearGradient>
+    <linearGradient id="cobek" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4a4b4d" />
+      <stop offset="100%" stop-color="#2c2d2e" />
+    </linearGradient>
+    <filter id="agSh" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#222" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <rect width="120" height="120" rx="16" fill="url(#agBg)" />
+  <!-- Stone Mortar (Cobek) -->
+  <circle cx="60" cy="62" r="44" fill="url(#cobek)" filter="url(#agSh)" />
+  <circle cx="60" cy="62" r="37" fill="#38393b" />
+
+  <!-- Banana Leaf under chicken -->
+  <ellipse cx="60" cy="63" rx="30" ry="24" fill="#527c1f" />
+  <path d="M35 63 Q60 60 85 63" stroke="#689a2b" stroke-width="1.5" fill="none" opacity="0.6" />
+
+  <!-- Crispy Fried Chicken -->
+  <ellipse cx="58" cy="62" rx="22" ry="17" fill="#c06e23" />
+  <ellipse cx="58" cy="61" rx="20" ry="15" fill="#d9822a" />
+  <!-- Crispy crumbs -->
+  <circle cx="43" cy="58" r="3" fill="#e5983d" />
+  <circle cx="71" cy="60" r="3.5" fill="#b4631d" />
+  <circle cx="67" cy="69" r="2.5" fill="#e5983d" />
+  <circle cx="48" cy="68" r="2" fill="#c06e23" />
+
+  <!-- Spicy Red Sambal Korek spread over chicken -->
+  <path d="M47 55 Q56 50 66 56 Q72 63 64 67 Q55 70 48 64 Z" fill="#cf2215" />
+  <!-- Chili seeds & flakes -->
+  <circle cx="52" cy="56" r="1.5" fill="#fabc22" />
+  <circle cx="60" cy="54" r="1.5" fill="#fabc22" />
+  <circle cx="64" cy="60" r="1.5" fill="#fabc22" />
+  <circle cx="56" cy="62" r="1.2" fill="#fabc22" />
+  <circle cx="51" cy="62" r="1.2" fill="#8c120a" />
+  <circle cx="62" cy="65" r="1.2" fill="#8c120a" />
+
+  <!-- Fresh Cucumber slices -->
+  <circle cx="75" cy="50" r="8" fill="#7fa83b" />
+  <circle cx="75" cy="50" r="6" fill="#e2f0c7" />
+  <circle cx="75" cy="50" r="1" fill="#7fa83b" />
+
+  <!-- Kemangi (Basil) leaf -->
+  <path d="M40 70 C36 65, 41 58, 46 62 C43 67, 41 70, 40 70 Z" fill="#4d7c1e" />
+</svg>
