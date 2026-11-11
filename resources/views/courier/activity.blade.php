@@ -3,6 +3,8 @@
 @section('title', 'Activity')
 @section('role', 'courier')
 @section('page-heading', 'Activity')
+@section('show-history', 'true')
+@section('history-url', route('courier.history'))
 
 @section('content')
 
@@ -13,7 +15,7 @@
     </div>
 @endif
 
-<div class="foodhero-list">
+<div class="foodhero-list" id="activity-list">
     @forelse ($pesanans as $pesanan)
         @php
             $resto = $pesanan->restoran;
@@ -21,23 +23,18 @@
             $pickupLoc = $resto->alamat ?? 'Lokasi Restoran Belum Diisi';
             $receiverName = $pesanan->nama_penerima ?? 'Penerima';
             $deliveryLoc = $pesanan->alamat_pengiriman ?? 'Alamat Pengiriman Belum Diisi';
-            $imageSrc = $pesanan->gambar_makanan ?: ($resto->gambar ?? 'assets/images/nasi-goreng.png');
-            $status = $pesanan->status_courier ?? $pesanan->status ?? 'on-delivery';
-            $normalizedStatus = strtolower(str_replace([' ', '_'], '-', $status));
-            $statusClass = 'status-' . $normalizedStatus;
+            $imageSrc = ($resto && $resto->gambar) ? $resto->gambar : 'assets/images/nasi-goreng.png';
             $questNumber = str_pad($pesanan->id, 2, '0', STR_PAD_LEFT);
-            $isFinished = in_array($normalizedStatus, ['finished', 'selesai']);
         @endphp
 
         <div class="foodhero-card" id="activity-card-{{ $pesanan->id }}">
-            {{-- Top: image + meta + badge --}}
+            {{-- Top: image + meta (tanpa badge status) --}}
             <div class="foodhero-card-top">
                 <img src="{{ asset($imageSrc) }}" alt="{{ $namaResto }}" class="foodhero-img">
                 <div class="foodhero-meta">
                     <div class="foodhero-quest-number">Quest Number #{{ $questNumber }}</div>
                     <div class="foodhero-name">{{ $namaResto }}</div>
                 </div>
-                <span class="foodhero-badge {{ $statusClass }}">{{ $status }}</span>
             </div>
 
             {{-- Details --}}
@@ -57,20 +54,16 @@
             </div>
 
             {{-- Action Button: Delivered --}}
-            @if ($isFinished)
-                <button type="button" class="foodhero-pick-btn" disabled>Delivered</button>
-            @else
-                <button
-                    type="button"
-                    class="foodhero-pick-btn"
-                    onclick="openDeliverModal({{ $pesanan->id }}, '{{ addslashes($namaResto) }}', '{{ addslashes($receiverName) }}')"
-                >
-                    Delivered
-                </button>
-            @endif
+            <button
+                type="button"
+                class="foodhero-pick-btn"
+                onclick="handleDeliverOrder(event, {{ $pesanan->id }})"
+            >
+                Delivered
+            </button>
         </div>
     @empty
-        <div class="foodhero-empty-state">
+        <div class="foodhero-empty-state" id="activity-empty-state">
             <h5>Belum ada aktivitas pesanan</h5>
             <p class="text-muted">Ambil pesanan di halaman Food Hero untuk mulai mengantar.</p>
             <a href="{{ route('courier.foodhero') }}" class="btn btn-sm btn-outline-success">Buka Food Hero</a>
@@ -78,51 +71,62 @@
     @endforelse
 </div>
 
-{{-- ===== MODAL KONFIRMASI DELIVERED (ACTIVITY) ===== --}}
-<div id="deliver-modal" class="pickup-modal-overlay" style="display:none;">
-    <div class="pickup-modal-box">
-        <div class="pickup-modal-icon">🛵</div>
-        <div class="pickup-modal-title">Konfirmasi Pengantaran</div>
-        <div class="pickup-modal-desc">
-            Apakah pesanan untuk <strong id="deliver-receiver-name"></strong> sudah selesai/sampai?
-        </div>
-        <div class="pickup-modal-actions">
-            <button type="button" class="pickup-btn-no" onclick="closeDeliverModal()">Tidak</button>
-            <button type="button" class="pickup-btn-yes" id="deliver-btn-confirm" onclick="confirmDeliverOrder()">Iya</button>
-        </div>
-    </div>
-</div>
-
 <script>
-    let _deliverOrderId   = null;
-    let _deliverOrderCard = null;
+    function handleDeliverOrder(event, orderId) {
+        if (event) event.stopPropagation();
 
-    function openDeliverModal(orderId, restoName, receiverName) {
-        _deliverOrderId   = orderId;
-        _deliverOrderCard = document.getElementById('activity-card-' + orderId);
-        document.getElementById('deliver-receiver-name').textContent = receiverName;
-        document.getElementById('deliver-modal').style.display = 'flex';
-    }
+        const card = document.getElementById('activity-card-' + orderId);
+        if (!card) return;
 
-    function closeDeliverModal() {
-        _deliverOrderId   = null;
-        _deliverOrderCard = null;
-        document.getElementById('deliver-modal').style.display = 'none';
-        const confirmBtn = document.getElementById('deliver-btn-confirm');
-        if (confirmBtn) {
-            confirmBtn.disabled = false;
-            confirmBtn.textContent = 'Iya';
+        // Cegah klik berulang
+        const btn = card.querySelector('.foodhero-pick-btn');
+        if (btn) {
+            btn.disabled = true;
+            btn.textContent = 'Menyelesaikan...';
         }
-    }
 
-    function confirmDeliverOrder() {
-        if (!_deliverOrderId) return;
+        // Langsung hilangkan pesanan dari halaman activity dengan animasi mulus
+        const cardHeight = card.offsetHeight;
+        const list       = document.getElementById('activity-list');
+        const allCards  = Array.from(list.querySelectorAll('.foodhero-card'));
+        const thisIndex = allCards.indexOf(card);
+        const below     = allCards.slice(thisIndex + 1);
 
-        const confirmBtn = document.getElementById('deliver-btn-confirm');
-        confirmBtn.disabled = true;
-        confirmBtn.textContent = 'Memproses...';
+        // Efek animasi kartu yang di-delivered (fade-out & geser)
+        card.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        card.style.opacity    = '0';
+        card.style.transform  = 'translateX(40px)';
 
-        const url   = '/courier/order/' + _deliverOrderId + '/deliver';
+        // Pesanan di bawahnya langsung naik ke atas mengisi ruang kosong
+        const gap = 24;
+        below.forEach(c => {
+            c.style.transition = 'transform 0.4s ease';
+            c.style.transform  = 'translateY(-' + (cardHeight + gap) + 'px)';
+        });
+
+        // Hapus elemen dari DOM
+        setTimeout(() => {
+            card.remove();
+
+            below.forEach(c => {
+                c.style.transition = 'none';
+                c.style.transform  = '';
+            });
+
+            // Jika semua pesanan sudah selesai diantar, tampilkan empty state
+            if (list && list.querySelectorAll('.foodhero-card').length === 0) {
+                list.innerHTML = `
+                    <div class="foodhero-empty-state" id="activity-empty-state">
+                        <h5>Belum ada aktivitas pesanan</h5>
+                        <p class="text-muted">Ambil pesanan di halaman Food Hero untuk mulai mengantar.</p>
+                        <a href="{{ route('courier.foodhero') }}" class="btn btn-sm btn-outline-success">Buka Food Hero</a>
+                    </div>
+                `;
+            }
+        }, 400);
+
+        // Kirim request ke server untuk update status pesanan menjadi 'completed'
+        const url   = "{{ url('/courier/order') }}/" + orderId + "/deliver";
         const token = document.querySelector('meta[name="csrf-token"]')?.content ?? '';
 
         fetch(url, {
@@ -136,36 +140,14 @@
         })
         .then(res => res.json())
         .then(data => {
-            if (data.success) {
-                closeDeliverModal();
-                // Update kartu secara dinamis: ubah badge ke status-finished dan tombol ke disabled
-                if (_deliverOrderCard) {
-                    const badge = _deliverOrderCard.querySelector('.foodhero-badge');
-                    if (badge) {
-                        badge.className = 'foodhero-badge status-finished';
-                        badge.textContent = 'finished';
-                    }
-                    const btn = _deliverOrderCard.querySelector('.foodhero-pick-btn');
-                    if (btn) {
-                        btn.disabled = true;
-                        btn.removeAttribute('onclick');
-                    }
-                }
-            } else {
-                alert('Gagal menyelesaikan status pesanan. Silakan coba lagi.');
-                closeDeliverModal();
+            if (!data.success) {
+                console.error('Gagal memperbarui status pesanan:', data);
             }
         })
-        .catch(() => {
-            alert('Terjadi kesalahan jaringan. Silakan coba lagi.');
-            closeDeliverModal();
+        .catch(err => {
+            console.error('Kesalahan jaringan saat update status pesanan:', err);
         });
     }
-
-    // Tutup modal jika klik di area luar popup box
-    document.getElementById('deliver-modal').addEventListener('click', function(e) {
-        if (e.target === this) closeDeliverModal();
-    });
 </script>
 
 @endsection

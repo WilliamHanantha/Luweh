@@ -570,14 +570,11 @@ body {
 }
 
 .order-card {
-    display: flex;
-    align-items: stretch;
-    gap: 24px;
-    padding: 14px;
     background: #ffffff;
-    border: 1px solid #e5e5e5;
+    border: 1.5px solid #e5e5e5;
     border-radius: 18px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 20px 22px 18px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -586,69 +583,93 @@ body {
     box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
 }
 
-.order-image {
-    width: 190px;
-    min-width: 190px;
-    height: 170px;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-.order-details {
+/* Baris atas: Order # + Customer */
+.order-card-header {
     display: flex;
-    flex: 1;
-    flex-direction: column;
     justify-content: space-between;
-    padding: 5px 0;
+    align-items: flex-start;
+    margin-bottom: 16px;
 }
 
 .order-number {
-    font-size: 13px;
-    color: #8aab37;
-    margin-bottom: 3px;
-}
-
-.order-menu {
     font-size: 22px;
+    font-weight: 800;
+    color: #82a52e;
+}
+
+.order-customer {
+    font-size: 14px;
+    font-weight: 500;
+    color: #82a52e;
+    text-align: right;
+}
+
+.order-customer strong {
     font-weight: 700;
     color: #82a52e;
-    margin-bottom: 8px;
 }
 
-.order-quantity {
-    font-size: 15px;
-    color: #82a52e;
-}
-
-.order-bottom {
+/* Baris tengah: daftar makanan + total */
+.order-card-body {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-    margin-top: 12px;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+    gap: 16px;
 }
 
-.order-price {
-    font-size: 21px;
-    font-weight: 700;
+.order-items-list {
+    list-style: disc;
+    margin: 0;
+    padding-left: 18px;
+    flex: 1;
+}
+
+.order-items-list li {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 4px;
+    line-height: 1.5;
+}
+
+.order-items-list li:last-child {
+    margin-bottom: 0;
+}
+
+.order-total-section {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.order-total-label {
+    font-size: 13px;
+    color: #82a52e;
+    margin-bottom: 2px;
+}
+
+.order-total-price {
+    font-size: 20px;
+    font-weight: 800;
     color: #82a52e;
 }
 
-.order-status {
+/* Tombol Picked Up by Driver */
+.order-pickup-btn {
+    display: block;
     width: 100%;
-    padding: 9px 22px;
-    border: 1px solid #8aab37;
-    border-radius: 10px;
+    padding: 11px 20px;
+    border: 1.5px solid #8aab37;
+    border-radius: 30px;
     color: #82a52e;
     background: white;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 700;
     text-align: center;
     cursor: pointer;
     transition: 0.2s ease;
 }
 
-.order-status:hover {
+.order-pickup-btn:hover {
     background: #82a52e;
     color: white;
 }
@@ -656,42 +677,25 @@ body {
 /* Responsive */
 
 @media (max-width: 600px) {
-    .back-icon {
-        width: 20px;
-        height: 20px;
-    }
-
-    .history-icon {
-        width: 30px;
-        height: 28px;
-    }
-
     .order-card {
-        gap: 12px;
-        padding: 10px;
+        padding: 16px 16px 14px;
     }
 
-    .order-image {
-        width: 115px;
-        min-width: 115px;
-        height: 145px;
+    .order-number {
+        font-size: 18px;
     }
 
-    .order-menu {
-        font-size: 17px;
-    }
-
-    .order-quantity {
-        font-size: 13px;
-    }
-
-    .order-price {
-        font-size: 17px;
-    }
-
-    .order-status {
-        padding: 8px;
+    .order-customer {
         font-size: 12px;
+    }
+
+    .order-total-price {
+        font-size: 17px;
+    }
+
+    .order-pickup-btn {
+        font-size: 13px;
+        padding: 10px;
     }
 }
 
@@ -708,14 +712,11 @@ body {
 }
 
 .history-card {
-    display: flex;
-    align-items: stretch;
-    gap: 24px;
-    padding: 14px;
     background: #ffffff;
-    border: 1px solid #e5e5e5;
+    border: 1.5px solid #e5e5e5;
     border-radius: 18px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 20px 22px 18px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -724,67 +725,88 @@ body {
     box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
 }
 
-.history-image {
-    width: 190px;
-    min-width: 190px;
-    height: 170px;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-.history-details {
+/* Baris atas: Order # + Customer */
+.history-card-header {
     display: flex;
-    flex: 1;
-    flex-direction: column;
     justify-content: space-between;
-    padding: 5px 0;
+    align-items: flex-start;
+    margin-bottom: 16px;
 }
 
 .history-number {
-    font-size: 13px;
-    color: #8aab37;
-    margin-bottom: 3px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #82a52e;
 }
 
-.history-menu {
-    font-size: 22px;
+.history-customer {
+    font-size: 14px;
+    font-weight: 500;
+    color: #82a52e;
+    text-align: right;
+}
+
+.history-customer strong {
     font-weight: 700;
     color: #82a52e;
-    margin-bottom: 8px;
 }
 
-.history-quantity {
-    font-size: 15px;
+/* Baris tengah: daftar makanan + total */
+.history-card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.history-items-list {
+    list-style: disc;
+    margin: 0;
+    padding-left: 18px;
+    flex: 1;
+}
+
+.history-items-list li {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 4px;
+    line-height: 1.5;
+}
+
+.history-items-list li:last-child {
+    margin-bottom: 0;
+}
+
+.history-total-section {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.history-total-label {
+    font-size: 13px;
     color: #82a52e;
+    margin-bottom: 2px;
 }
 
 .history-price {
-    font-size: 21px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 800;
     color: #82a52e;
-    text-align: right;
 }
 
 /* Responsive */
 
 @media (max-width: 600px) {
     .history-card {
-        gap: 12px;
-        padding: 10px;
+        padding: 16px 16px 14px;
     }
 
-    .history-image {
-        width: 115px;
-        min-width: 115px;
-        height: 145px;
+    .history-number {
+        font-size: 18px;
     }
 
-    .history-menu {
-        font-size: 17px;
-    }
-
-    .history-quantity {
-        font-size: 13px;
+    .history-customer {
+        font-size: 12px;
     }
 
     .history-price {

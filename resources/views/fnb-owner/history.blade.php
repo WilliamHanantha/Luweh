@@ -11,39 +11,34 @@
 
 <div class="history-list">
 
-    @forelse ($items as $item)
+    @forelse ($pesanans as $pesanan)
         @php
-            $makanan = $item->daftarMakanan;
-            $harga   = $makanan ? $makanan->harga * $item->kuantitas : 0;
-            $gambar  = ($makanan && $makanan->gambar) ? $makanan->gambar : 'assets/images/nasi-goreng.png';
+            $customerName = 'Lafuan Igna';
+            $orderNumber  = str_pad($pesanan->id, 2, '0', STR_PAD_LEFT);
+            $total        = $pesanan->total_harga;
         @endphp
 
         <div class="history-card">
 
-            <img
-                src="{{ asset($gambar) }}"
-                alt="{{ $makanan->nama_makanan ?? '-' }}"
-                class="history-image"
-            >
+            {{-- Baris atas: Order # + Customer --}}
+            <div class="history-card-header">
+                <div class="history-number">Order #{{ $orderNumber }}</div>
+                <div class="history-customer">Customer: <strong>{{ $customerName }}</strong></div>
+            </div>
 
-            <div class="history-details">
+            {{-- Baris tengah: daftar makanan (kiri) + total (kanan) --}}
+            <div class="history-card-body">
 
-                <div>
-                    <div class="history-number">
-                        Order Number #{{ str_pad($item->id, 2, '0', STR_PAD_LEFT) }}
-                    </div>
+                <ul class="history-items-list">
+                    @foreach ($pesanan->itemPesanans as $item)
+                        @php $namaMakanan = $item->daftarMakanan->nama_makanan ?? '-'; @endphp
+                        <li>{{ $namaMakanan }} : {{ $item->kuantitas }}</li>
+                    @endforeach
+                </ul>
 
-                    <div class="history-menu">
-                        {{ $makanan->nama_makanan ?? '-' }}
-                    </div>
-
-                    <div class="history-quantity">
-                        Quantity: {{ $item->kuantitas }}
-                    </div>
-                </div>
-
-                <div class="history-price">
-                    {{ number_format($harga, 0, ',', '.') }}
+                <div class="history-total-section">
+                    <div class="history-total-label">Total</div>
+                    <div class="history-price">Rp {{ number_format($total, 0, ',', '.') }}</div>
                 </div>
 
             </div>

@@ -35,12 +35,12 @@
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center gap-3">
                 @php
-                    $hasBack = View::hasSection('back-url') || request()->is('*fnb-owner/history*');
-                    $backUrl = View::hasSection('back-url') ? trim(View::yieldContent('back-url')) : url('/fnb-owner/order');
+                    $hasBack = View::hasSection('back-url') || request()->is('*fnb-owner/history*') || request()->is('*courier/history*') || request()->is('*courier/activity/history*');
+                    $backUrl = View::hasSection('back-url') ? trim(View::yieldContent('back-url')) : (request()->is('*courier*') ? route('courier.activity') : url('/fnb-owner/order'));
                 @endphp
 
                 @if ($hasBack)
-                    <a href="{{ $backUrl }}" class="header-back-btn" aria-label="Kembali ke Order" title="Kembali ke Order">
+                    <a href="{{ $backUrl }}" class="header-back-btn" aria-label="Kembali" title="Kembali">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" class="back-icon">
                             <line x1="19" y1="12" x2="5" y2="12"></line>
                             <polyline points="12 19 5 12 12 5"></polyline>
@@ -56,12 +56,13 @@
                 </div>
             </div>
 
-            {{-- Logo / Tombol History: hanya tampil pada page fnb owner bagian order, hidden untuk semua page lain --}}
+            {{-- Logo / Tombol History: tampil pada order fnb-owner dan activity courier --}}
             @php
                 $showHistory = request()->is('*fnb-owner/order*') || (View::hasSection('show-history') && trim(View::yieldContent('show-history')) === 'true');
+                $historyUrl = View::hasSection('history-url') ? trim(View::yieldContent('history-url')) : (request()->is('*courier*') ? route('courier.history') : url('/fnb-owner/history'));
             @endphp
             <div class="header-action {{ $showHistory ? '' : 'd-none' }}">
-                <a href="{{ url('/fnb-owner/history') }}" class="header-history-btn" aria-label="History" title="History">
+                <a href="{{ $historyUrl }}" class="header-history-btn" aria-label="History" title="History">
                     <img src="{{ asset('assets/images/history.svg') }}" alt="History" class="history-icon">
                 </a>
             </div>

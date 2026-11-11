@@ -21,21 +21,18 @@
             $pickupLoc = $resto->alamat ?? 'Lokasi Restoran Belum Diisi';
             $receiverName = $pesanan->nama_penerima ?? 'Penerima';
             $deliveryLoc = $pesanan->alamat_pengiriman ?? 'Alamat Pengiriman Belum Diisi';
-            $imageSrc = $pesanan->gambar_makanan ?: ($resto->gambar ?? 'assets/images/nasi-goreng.png');
-            $status = $pesanan->status_courier ?? $pesanan->status ?? 'on-going';
-            $statusClass = 'status-' . strtolower(str_replace(' ', '-', $status));
+            $imageSrc = ($resto && $resto->gambar) ? $resto->gambar : 'assets/images/nasi-goreng.png';
             $questNumber = str_pad($pesanan->id, 2, '0', STR_PAD_LEFT);
         @endphp
 
         <div class="foodhero-card" id="foodhero-card-{{ $pesanan->id }}">
-            {{-- Top: image + meta + badge --}}
+            {{-- Top: image + meta --}}
             <div class="foodhero-card-top">
                 <img src="{{ asset($imageSrc) }}" alt="{{ $namaResto }}" class="foodhero-img">
                 <div class="foodhero-meta">
                     <div class="foodhero-quest-number">Quest Number #{{ $questNumber }}</div>
                     <div class="foodhero-name">{{ $namaResto }}</div>
                 </div>
-                <span class="foodhero-badge {{ $statusClass }}">{{ $status }}</span>
             </div>
 
             {{-- Details --}}
@@ -117,7 +114,7 @@
         confirmBtn.disabled = true;
         confirmBtn.textContent = 'Memproses...';
 
-        const url   = '/courier/order/' + _pickOrderId + '/pick';
+        const url   = "{{ url('/courier/order') }}/" + _pickOrderId + "/pick";
         const token = document.querySelector('meta[name="csrf-token"]')?.content ?? '';
 
         fetch(url, {

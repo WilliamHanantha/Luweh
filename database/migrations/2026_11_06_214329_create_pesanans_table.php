@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('pesanans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('restoran_id')->nullable()->constrained('restorans')->nullOnDelete();
+            $table->foreignId('fnb_user_id')->nullable()->constrained('user_id')->nullOnDelete();
+            $table->foreignId('courier_user_id')->nullable()->constrained('user_id')->nullOnDelete();
             $table->string('status')->default('Keranjang');
             $table->string('metode_pengiriman')->nullable();
             $table->text('alamat_pengiriman')->nullable();
