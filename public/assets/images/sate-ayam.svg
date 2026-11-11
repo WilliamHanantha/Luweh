@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="saBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdfbf7" />
+      <stop offset="100%" stop-color="#f2ebe0" />
+    </linearGradient>
+    <linearGradient id="sPlate" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#e9e7df" />
+    </linearGradient>
+    <filter id="saSh" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#3d2a14" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <rect width="120" height="120" rx="16" fill="url(#saBg)" />
+  <!-- Plate -->
+  <circle cx="60" cy="62" r="44" fill="url(#sPlate)" stroke="#dad7cb" stroke-width="2" filter="url(#saSh)" />
+  <circle cx="60" cy="62" r="37" fill="#fdfdfa" />
+
+  <!-- Banana Leaf Strip -->
+  <rect x="30" y="44" width="60" height="36" rx="4" fill="#588523" transform="rotate(-5 60 62)" opacity="0.85" />
+
+  <!-- Skewer Sticks (Bamboo) -->
+  <line x1="26" y1="48" x2="94" y2="72" stroke="#d4b47e" stroke-width="2" stroke-linecap="round" />
+  <line x1="25" y1="58" x2="95" y2="62" stroke="#d4b47e" stroke-width="2" stroke-linecap="round" />
+  <line x1="28" y1="72" x2="93" y2="52" stroke="#d4b47e" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Grilled Meat chunks (Sate) -->
+  <!-- Skewer 1 -->
+  <circle cx="45" cy="54" r="5.5" fill="#78401a" />
+  <circle cx="56" cy="58" r="6" fill="#663312" />
+  <circle cx="68" cy="62" r="5.5" fill="#874719" />
+  <circle cx="78" cy="66" r="5" fill="#663312" />
+
+  <!-- Skewer 2 -->
+  <circle cx="44" cy="61" r="5" fill="#874719" />
+  <circle cx="55" cy="61" r="6.5" fill="#5c2b0c" />
+  <circle cx="67" cy="61" r="6" fill="#78401a" />
+  <circle cx="79" cy="62" r="5" fill="#5c2b0c" />
+
+  <!-- Skewer 3 -->
+  <circle cx="46" cy="68" r="5.5" fill="#663312" />
+  <circle cx="57" cy="64" r="6" fill="#874719" />
+  <circle cx="69" cy="60" r="5.5" fill="#5c2b0c" />
+  <circle cx="79" cy="57" r="5" fill="#78401a" />
+
+  <!-- Peanut Sauce (Bumbu Kacang) over skewers -->
+  <path d="M48 57 Q62 52 74 61 Q68 70 54 66 Z" fill="#9c5f2b" opacity="0.9" />
+  <!-- Sweet soy sauce (Kecap manis) drizzle -->
+  <path d="M46 59 Q55 64 68 58 T76 65" stroke="#261408" stroke-width="2.5" stroke-linecap="round" fill="none" />
+
+  <!-- Sliced Red Shallots & Green Chili -->
+  <circle cx="50" cy="53" r="2.5" fill="#a83b58" />
+  <circle cx="71" cy="56" r="2.5" fill="#a83b58" />
+  <rect x="58" y="65" width="4" height="2" rx="1" fill="#4d7c1e" transform="rotate(30 60 66)" />
+</svg>

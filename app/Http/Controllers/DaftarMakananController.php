@@ -21,13 +21,36 @@ class DaftarMakananController extends Controller
             'nama_makanan' => 'required|string|max:255',
             'deskripsi'    => 'required|string',
             'harga'        => 'required|numeric',
-            'stok'         => 'required|integer',
-            'status'       => 'required|boolean',
+            'stok'         => 'nullable|integer',
+            'status'       => 'nullable|boolean',
         ]);
+
+        $validatedData['stok'] = $validatedData['stok'] ?? 0;
+        $validatedData['status'] = $validatedData['status'] ?? false;
 
         $makanan = DaftarMakanan::create($validatedData);
 
         return response()->json($makanan, 201);
+    }
+
+    public function setQuantity($id)
+    {
+        $makanan = DaftarMakanan::findOrFail($id);
+        return view('fnb-owner.setQuantity', compact('makanan'));
+    }
+
+    public function confirmQuantity(Request $request, $id)
+    {
+        $request->validate([
+            'stok' => 'required|integer|min:1',
+        ]);
+
+        $makanan = DaftarMakanan::findOrFail($id);
+        $makanan->stok = (int) $request->stok;
+        $makanan->status = true; // Aktifkan menu saat berhasil di-post
+        $makanan->save();
+
+        return redirect('/your-menu')->with('success', 'Menu "' . $makanan->nama_makanan . '" berhasil di-post dengan stok ' . $makanan->stok . '!');
     }
 
     public function create()
@@ -73,6 +96,20 @@ class DaftarMakananController extends Controller
             'message' => 'Status pesanan berhasil diperbarui.',
             'item_id' => $item->id,
         ]);
+    }
+
+    public function toggleStatus($id)
+    {
+        $makanan = DaftarMakanan::findOrFail($id);
+        if ($makanan->status) {
+            $makanan->status = false;
+            $makanan->stok = 0;
+            $makanan->save();
+
+            return redirect()->back()->with('success', 'Menu "' . $makanan->nama_makanan . '" berhasil dinonaktifkan!');
+        }
+
+        return redirect('/fnb-owner/' . $id . '/set-quantity');
     }
 
     public function destroy($id)

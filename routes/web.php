@@ -14,14 +14,17 @@ Route::get('/order-now', [App\Http\Controllers\OrderNowController::class, 'index
 Route::post('/order-now/item/{id}/tambah', [App\Http\Controllers\OrderNowController::class, 'tambah']);
 Route::post('/order-now/item/{id}/kurang', [App\Http\Controllers\OrderNowController::class, 'kurang']);
 
-Route::get('/your-menu', function () {
-    return view('fnb-owner.yourMenu');
-});
+Route::get('/your-menu', [App\Http\Controllers\DaftarMakananController::class, 'index']);
+Route::get('/set-quantity/{id}', [App\Http\Controllers\DaftarMakananController::class, 'setQuantity']);
+Route::post('/set-quantity/{id}', [App\Http\Controllers\DaftarMakananController::class, 'confirmQuantity']);
 
 Route::group(['prefix' => 'fnb-owner'], function () {
     Route::get('/', [App\Http\Controllers\DaftarMakananController::class, 'index']);
     Route::post('/store', [App\Http\Controllers\DaftarMakananController::class, 'store']);
     Route::get('/create', [App\Http\Controllers\DaftarMakananController::class, 'create']);
+    Route::get('/{id}/set-quantity', [App\Http\Controllers\DaftarMakananController::class, 'setQuantity'])->name('makanan.set-quantity');
+    Route::post('/{id}/confirm-quantity', [App\Http\Controllers\DaftarMakananController::class, 'confirmQuantity'])->name('makanan.confirm-quantity');
+    Route::post('/{id}/toggle-status', [App\Http\Controllers\DaftarMakananController::class, 'toggleStatus'])->name('makanan.toggle-status');
     Route::delete('/{id}', [App\Http\Controllers\DaftarMakananController::class, 'destroy']);
     Route::get('/order', [App\Http\Controllers\DaftarMakananController::class, 'order'])->name('fnb-owner.order');
     Route::get('/history', [App\Http\Controllers\DaftarMakananController::class, 'history'])->name('fnb-owner.history');

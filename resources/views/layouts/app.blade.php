@@ -10,6 +10,8 @@
 
     <!-- Bootstrap -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    @stack('styles')
 </head>
 
 <body>
@@ -71,6 +73,7 @@
         @yield('content')
     </main>
 
+    @stack('scripts')
 </body>
 
 </html>

@@ -1,6 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import 'tailwindcss';
 @import 'bootstrap/dist/css/bootstrap.min.css';
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -122,6 +122,266 @@ body {
     margin-top: -30px;
     padding: 30px;
     position: relative;
+}
+
+/* ==========================================================
+   YOUR MENU PAGE STYLES (F&B OWNER)
+   ========================================================== */
+.menu-page-wrapper {
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+    padding-bottom: 60px;
+}
+
+/* Tabs Navigation */
+.menu-tabs {
+    border-bottom: 1.5px solid #e1e7d2;
+    padding-bottom: 0;
+}
+
+.menu-tabs .nav-link {
+    color: #7b8e5c;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    padding: 10px 16px;
+    position: relative;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.menu-tabs .nav-link:hover {
+    color: #5c7c1f;
+}
+
+.menu-tabs .nav-link.active {
+    color: #5c7c1f;
+    font-weight: 700;
+    background: transparent;
+    border-bottom: 3px solid #6b8e23;
+}
+
+/* Menu Item Card */
+.menu-card {
+    background: #ffffff;
+    border: 1.5px solid #dce4cb;
+    border-radius: 18px;
+    padding: 12px 14px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.menu-card:hover {
+    box-shadow: 0 4px 12px rgba(82, 111, 18, 0.08);
+}
+
+.menu-img-wrapper {
+    width: 95px;
+    height: 95px;
+    border-radius: 14px;
+    overflow: hidden;
+    background-color: #f3f6ee;
+}
+
+.menu-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.menu-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: #5c7c1f;
+    margin: 0 0 2px 0;
+    line-height: 1.25;
+}
+
+.menu-weight {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #8f9f74;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.menu-stock {
+    font-size: 12px;
+    font-weight: 500;
+    color: #638520;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.menu-stock strong {
+    font-weight: 700;
+    color: #4b6613;
+}
+
+.menu-price {
+    font-size: 17px;
+    font-weight: 700;
+    color: #5c7c1f;
+}
+
+/* Button Post / Unpost */
+.btn-post {
+    background-color: #ffffff;
+    border: 1.5px solid #7ea32e;
+    color: #6d8f24;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 4px 20px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn-post:hover {
+    background-color: #6d8f24;
+    color: #ffffff;
+    border-color: #6d8f24;
+}
+
+.btn-unpost {
+    border-color: #9cb177;
+    color: #7b8e5c;
+}
+
+.btn-unpost:hover {
+    background-color: #7b8e5c;
+    color: #ffffff;
+    border-color: #7b8e5c;
+}
+
+/* Floating Action Button (FAB) */
+.fab-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #fabc22;
+    color: #4b6413;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(250, 188, 34, 0.45);
+    text-decoration: none;
+    z-index: 1050;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.fab-btn span {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: -3px;
+}
+
+.fab-btn:hover {
+    background-color: #e5ab1a;
+    color: #384b0c;
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px rgba(250, 188, 34, 0.6);
+}
+
+/* Custom Alert Banner */
+.custom-alert {
+    background-color: #eff5de;
+    color: #4c6813;
+    border: 1px solid #d4e3b3;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* ==========================================================
+   SET QUANTITY PAGE STYLES
+   ========================================================== */
+.set-quantity-wrapper {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Quantity Counter Component */
+.quantity-control {
+    gap: 8px;
+}
+
+.btn-qty {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid #7ea32e;
+    background: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.15s ease;
+}
+
+.btn-qty:hover {
+    background-color: #f3f6ee;
+    border-color: #658a22;
+    transform: scale(1.08);
+}
+
+.btn-qty:active {
+    transform: scale(0.95);
+}
+
+.btn-qty svg {
+    display: block;
+}
+
+.qty-number {
+    font-size: 16px;
+    font-weight: 700;
+    color: #5c7c1f;
+    min-width: 22px;
+    text-align: center;
+    display: inline-block;
+    user-select: none;
+}
+
+/* Confirm Button */
+.btn-confirm {
+    background-color: #fabc22;
+    color: #384b0c;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 30px;
+    padding: 13px 40px;
+    min-width: 220px;
+    max-width: 280px;
+    box-shadow: 0 4px 16px rgba(250, 188, 34, 0.45);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn-confirm:hover {
+    background-color: #f5b316;
+    color: #293806;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 188, 34, 0.6);
+}
+
+.btn-confirm:active {
+    transform: translateY(0);
 }
 
 

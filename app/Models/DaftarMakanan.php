@@ -11,6 +11,7 @@ class DaftarMakanan extends Model
 
     protected $fillable = [
         'nama_makanan',
+        'image',
         'deskripsi',
         'harga',
         'stok',
