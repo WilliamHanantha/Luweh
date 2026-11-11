@@ -55,6 +55,65 @@ body {
     margin: 0;
 }
 
+.page-subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 2px;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.header-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.header-back-btn:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+    color: white;
+}
+
+.back-icon {
+    width: 24px;
+    height: 24px;
+    color: white;
+    filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.3));
+    display: block;
+}
+
+.header-action {
+    display: flex;
+    align-items: center;
+}
+
+.header-history-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.header-history-btn:hover {
+    transform: scale(1.08);
+    opacity: 0.9;
+}
+
+.history-icon {
+    width: 36px;
+    height: 34px;
+    filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.3));
+    display: block;
+    object-fit: contain;
+}
+
 /* CONTENT */
 .content {
     background: white;
@@ -323,4 +382,591 @@ body {
 
 .btn-confirm:active {
     transform: translateY(0);
+}
+
+
+
+/* ==============================
+   ORDER PAGE
+================================= */
+
+.order-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 10px 0 30px;
+}
+
+.order-card {
+    display: flex;
+    align-items: stretch;
+    gap: 24px;
+    padding: 14px;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+}
+
+.order-image {
+    width: 190px;
+    min-width: 190px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.order-details {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.order-number {
+    font-size: 13px;
+    color: #8aab37;
+    margin-bottom: 3px;
+}
+
+.order-menu {
+    font-size: 22px;
+    font-weight: 700;
+    color: #82a52e;
+    margin-bottom: 8px;
+}
+
+.order-quantity {
+    font-size: 15px;
+    color: #82a52e;
+}
+
+.order-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.order-price {
+    font-size: 21px;
+    font-weight: 700;
+    color: #82a52e;
+}
+
+.order-status {
+    width: 100%;
+    padding: 9px 22px;
+    border: 1px solid #8aab37;
+    border-radius: 10px;
+    color: #82a52e;
+    background: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.order-status:hover {
+    background: #82a52e;
+    color: white;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+    .back-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .history-icon {
+        width: 30px;
+        height: 28px;
+    }
+
+    .order-card {
+        gap: 12px;
+        padding: 10px;
+    }
+
+    .order-image {
+        width: 115px;
+        min-width: 115px;
+        height: 145px;
+    }
+
+    .order-menu {
+        font-size: 17px;
+    }
+
+    .order-quantity {
+        font-size: 13px;
+    }
+
+    .order-price {
+        font-size: 17px;
+    }
+
+    .order-status {
+        padding: 8px;
+        font-size: 12px;
+    }
+}
+
+
+/* ==============================
+   HISTORY PAGE
+================================= */
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 10px 0 30px;
+}
+
+.history-card {
+    display: flex;
+    align-items: stretch;
+    gap: 24px;
+    padding: 14px;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.history-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+}
+
+.history-image {
+    width: 190px;
+    min-width: 190px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.history-details {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.history-number {
+    font-size: 13px;
+    color: #8aab37;
+    margin-bottom: 3px;
+}
+
+.history-menu {
+    font-size: 22px;
+    font-weight: 700;
+    color: #82a52e;
+    margin-bottom: 8px;
+}
+
+.history-quantity {
+    font-size: 15px;
+    color: #82a52e;
+}
+
+.history-price {
+    font-size: 21px;
+    font-weight: 700;
+    color: #82a52e;
+    text-align: right;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+    .history-card {
+        gap: 12px;
+        padding: 10px;
+    }
+
+    .history-image {
+        width: 115px;
+        min-width: 115px;
+        height: 145px;
+    }
+
+    .history-menu {
+        font-size: 17px;
+    }
+
+    .history-quantity {
+        font-size: 13px;
+    }
+
+    .history-price {
+        font-size: 17px;
+    }
+}
+
+
+/* ==============================
+   COURIER HOME PAGE
+================================= */
+
+.courier-home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 15px 40px;
+    text-align: center;
+}
+
+.courier-hero-image-wrapper {
+    max-width: 260px;
+    width: 100%;
+    margin: 0 auto 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.courier-hero-img {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    object-fit: contain;
+}
+
+.btn-food-hero {
+    display: inline-block;
+    background-color: #556f18;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 48px;
+    border-radius: 25px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-food-hero:hover {
+    background-color: #465b12;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+}
+
+.btn-food-hero:active {
+    transform: translateY(0);
+}
+
+
+
+
+
+
+
+
+/* ==============================
+   FOOD HERO PAGE
+   ============================== */
+
+.foodhero-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 10px 0 30px;
+}
+
+.foodhero-card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.foodhero-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 14px rgba(0,0,0,0.12);
+}
+
+.foodhero-card-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 14px;
+    position: relative;
+}
+
+.foodhero-img {
+    width: 95px;
+    min-width: 95px;
+    height: 95px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.foodhero-meta {
+    flex: 1;
+}
+
+.foodhero-quest-number {
+    font-size: 12px;
+    color: #8aab37;
+    margin-bottom: 4px;
+}
+
+.foodhero-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #82a52e;
+    line-height: 1.3;
+}
+
+.foodhero-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #82a52e;
+    background: #f1f8e4;
+    border: 1px solid #c5dc7a;
+    border-radius: 20px;
+    padding: 2px 10px;
+    text-transform: capitalize;
+}
+
+/* Status: on-going (kuning) */
+.foodhero-badge.badge-on-going,
+.foodhero-badge.status-on-going {
+    color: #926402;
+    background: #fef9c3;
+    border: 1px solid #facc15;
+}
+
+/* Status: on-delivery (biru) */
+.foodhero-badge.badge-on-delivery,
+.foodhero-badge.status-on-delivery {
+    color: #0369a1;
+    background: #e0f2fe;
+    border: 1px solid #7dd3fc;
+}
+
+/* Status: finished (hijau) */
+.foodhero-badge.badge-finished,
+.foodhero-badge.status-finished {
+    color: #15803d;
+    background: #dcfce7;
+    border: 1px solid #86efac;
+}
+
+.foodhero-details {
+    padding: 0 18px 4px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.foodhero-detail-row {
+    padding: 12px 0;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.foodhero-detail-row:last-child {
+    border-bottom: none;
+}
+
+.foodhero-detail-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #82a52e;
+    margin-bottom: 3px;
+}
+
+.foodhero-detail-value {
+    font-size: 14px;
+    color: #555;
+}
+
+.foodhero-pick-btn {
+    display: block;
+    width: calc(100% - 36px);
+    margin: 10px 18px 18px;
+    padding: 11px;
+    border: 1.5px solid #82a52e;
+    border-radius: 10px;
+    background: white;
+    color: #82a52e;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+    text-align: center;
+}
+
+.foodhero-pick-btn:hover:not(:disabled) {
+    background: #82a52e;
+    color: white;
+}
+
+.foodhero-pick-btn:disabled,
+.foodhero-pick-btn.btn-disabled {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.foodhero-empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px dashed #d1d5db;
+    color: #6b7280;
+    margin: 20px 0;
+}
+
+.foodhero-empty-state p {
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+@media (max-width: 600px) {
+    .foodhero-img {
+        width: 75px;
+        min-width: 75px;
+        height: 75px;
+    }
+    .foodhero-name {
+        font-size: 16px;
+    }
+}
+
+/* ==============================
+   ORDER & HISTORY: EMPTY STATE
+   ============================== */
+
+.order-empty,
+.history-empty {
+    text-align: center;
+    padding: 48px 20px;
+    color: #aaa;
+    font-size: 15px;
+}
+
+/* ==============================
+   PICKUP CONFIRMATION MODAL
+   ============================== */
+
+.pickup-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.pickup-modal-box {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 32px 28px 24px;
+    max-width: 360px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    animation: modal-pop 0.25s ease;
+}
+
+@keyframes modal-pop {
+    from {
+        transform: scale(0.88);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.pickup-modal-icon {
+    font-size: 44px;
+    margin-bottom: 12px;
+}
+
+.pickup-modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.pickup-modal-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.pickup-modal-desc strong {
+    color: #82a52e;
+}
+
+.pickup-modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.pickup-btn-no {
+    flex: 1;
+    padding: 11px;
+    border: 1.5px solid #ccc;
+    border-radius: 10px;
+    background: #fff;
+    color: #666;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.pickup-btn-no:hover {
+    background: #f5f5f5;
+    border-color: #aaa;
+}
+
+.pickup-btn-yes {
+    flex: 1;
+    padding: 11px;
+    border: none;
+    border-radius: 10px;
+    background: #82a52e;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.pickup-btn-yes:hover {
+    background: #6a8a24;
 }

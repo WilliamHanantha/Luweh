@@ -24,8 +24,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             DaftarMakananSeeder::class,
-            PesananSeeder::class,
             RestoranSeeder::class,
+            PesananSeeder::class,
+            ItemPesananSeeder::class,
+            CourierPesananSeeder::class,
         ]);
     }
 }

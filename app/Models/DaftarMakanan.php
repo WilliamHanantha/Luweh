@@ -10,12 +10,12 @@ class DaftarMakanan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_makanan',
         'nama_makanan',
         'image',
         'deskripsi',
         'harga',
         'stok',
-        'status'
+        'status',
+        'gambar',
     ];
 }

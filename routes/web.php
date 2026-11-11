@@ -26,22 +26,27 @@ Route::group(['prefix' => 'fnb-owner'], function () {
     Route::post('/{id}/confirm-quantity', [App\Http\Controllers\DaftarMakananController::class, 'confirmQuantity'])->name('makanan.confirm-quantity');
     Route::post('/{id}/toggle-status', [App\Http\Controllers\DaftarMakananController::class, 'toggleStatus'])->name('makanan.toggle-status');
     Route::delete('/{id}', [App\Http\Controllers\DaftarMakananController::class, 'destroy']);
-    Route::get('/order', [App\Http\Controllers\DaftarMakananController::class, 'order']);
+    Route::get('/order', [App\Http\Controllers\DaftarMakananController::class, 'order'])->name('fnb-owner.order');
+    Route::get('/history', [App\Http\Controllers\DaftarMakananController::class, 'history'])->name('fnb-owner.history');
+    // AJAX: tandai item pesanan sudah diambil driver
+    Route::post('/order/item/{id}/pickup', [App\Http\Controllers\DaftarMakananController::class, 'updateStatusDriver'])->name('fnb-owner.order.pickup');
 });
 
-Route::get('/order-activity', function () {
-    return view('fnb-owner.order');
-});
 
-// Page 2: Food Hero
-Route::get('/food-hero', function () {
-    return view('courier.foodhero');
-});
 
-Route::get('/milestone', function () {
-    return view('milestone');
-});
+// Courier Routes
+Route::group(['prefix' => 'courier'], function () {
+    Route::get('/', function () {
+        return view('courier.courierhome');
+    })->name('courier.home');
 
-Route::get('/redeem-points', function () {
-    return view('courier.redeempoints');
+    Route::get('/food-hero', [\App\Http\Controllers\CourierController::class, 'foodHero'])->name('courier.foodhero');
+    Route::post('/order/{id}/pick', [\App\Http\Controllers\CourierController::class, 'pickOrder'])->name('courier.order.pick');
+
+    Route::get('/activity', [\App\Http\Controllers\CourierController::class, 'activity'])->name('courier.activity');
+    Route::post('/order/{id}/deliver', [\App\Http\Controllers\CourierController::class, 'deliverOrder'])->name('courier.order.deliver');
+
+    Route::get('/redeem-points', function () {
+        return view('courier.redeempoints');
+    })->name('courier.redeem');
 });
