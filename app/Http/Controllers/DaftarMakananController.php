@@ -23,14 +23,26 @@ class DaftarMakananController extends Controller
             'harga'        => 'required|numeric',
             'stok'         => 'nullable|integer',
             'status'       => 'nullable|boolean',
+            'image'        => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
         ]);
 
         $validatedData['stok'] = $validatedData['stok'] ?? 0;
         $validatedData['status'] = $validatedData['status'] ?? false;
 
+        if ($request->hasFile('image')) {
+            $imageFile = $request->file('image');
+            $imageName = time() . '_' . uniqid() . '.' . $imageFile->getClientOriginalExtension();
+            $imageFile->move(public_path('assets/images'), $imageName);
+            $validatedData['image'] = 'assets/images/' . $imageName;
+        }
+
         $makanan = DaftarMakanan::create($validatedData);
 
-        return response()->json($makanan, 201);
+        if ($request->wantsJson()) {
+            return response()->json($makanan, 201);
+        }
+
+        return redirect('/your-menu')->with('success', 'Menu "' . $makanan->nama_makanan . '" berhasil ditambahkan!');
     }
 
     public function setQuantity($id)
@@ -56,6 +68,35 @@ class DaftarMakananController extends Controller
     public function create()
     {
         return view('fnb-owner.createMakanan');
+    }
+
+    public function edit($id)
+    {
+        $makanan = DaftarMakanan::findOrFail($id);
+        return view('fnb-owner.editMakanan', compact('makanan'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $makanan = DaftarMakanan::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'nama_makanan' => 'required|string|max:255',
+            'deskripsi'    => 'required|string',
+            'harga'        => 'required|numeric',
+            'image'        => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $imageFile = $request->file('image');
+            $imageName = time() . '_' . uniqid() . '.' . $imageFile->getClientOriginalExtension();
+            $imageFile->move(public_path('assets/images'), $imageName);
+            $validatedData['image'] = 'assets/images/' . $imageName;
+        }
+
+        $makanan->update($validatedData);
+
+        return redirect('/your-menu')->with('success', 'Menu "' . $makanan->nama_makanan . '" berhasil diperbarui!');
     }
 
     /**
@@ -112,13 +153,18 @@ class DaftarMakananController extends Controller
         return redirect('/fnb-owner/' . $id . '/set-quantity');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $makanan = DaftarMakanan::findOrFail($id);
+        $nama = $makanan->nama_makanan;
         $makanan->delete();
 
-        return response()->json([
-            'message' => 'Makanan berhasil dihapus'
-        ]);
+        if ($request->wantsJson()) {
+            return response()->json([
+                'message' => 'Makanan berhasil dihapus'
+            ]);
+        }
+
+        return redirect('/your-menu')->with('success', 'Menu "' . $nama . '" berhasil dihapus!');
     }
 }
