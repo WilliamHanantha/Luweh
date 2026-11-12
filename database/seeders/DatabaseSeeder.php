@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             PesananSeeder::class,
             ItemPesananSeeder::class,
             CourierPesananSeeder::class,
+            RedeemPointsSeeder::class,
         ]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PenukaranPoinController;
 
 Route::get('/', function () {
     return view('home');
@@ -50,7 +51,10 @@ Route::group(['prefix' => 'courier'], function () {
     Route::get('/history', [\App\Http\Controllers\CourierController::class, 'history']);
     Route::post('/order/{id}/deliver', [\App\Http\Controllers\CourierController::class, 'deliverOrder'])->name('courier.order.deliver');
 
-    Route::get('/redeem-points', function () {
-        return view('courier.redeempoints');
-    })->name('courier.redeem');
+    // UC14 - Redeem Points
+    Route::get('/redeem-points', [PenukaranPoinController::class, 'index'])->name('courier.redeem');
+    Route::get('/redeem-points/{id}/confirm', [PenukaranPoinController::class, 'confirm'])->whereNumber('id')->name('courier.redeem.confirm');
+    Route::post('/redeem-points/{id}/redeem', [PenukaranPoinController::class, 'redeem'])->whereNumber('id')->name('courier.redeem.store');
+    Route::get('/redeem-points/receipt/{id}', [PenukaranPoinController::class, 'receipt'])->whereNumber('id')->name('courier.redeem.receipt');
+
 });

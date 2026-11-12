@@ -10,6 +10,15 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+
+    // Prevent Vite from loading the conflicting
+    // PostCSS configuration in the parent Downloads folder.
+    css: {
+        postcss: {
+            plugins: [],
+        },
+    },
+
     server: {
         watch: {
             ignored: ['**/storage/framework/views/**'],
