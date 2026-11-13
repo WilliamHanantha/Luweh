@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Restoran extends Model
@@ -11,5 +12,10 @@ class Restoran extends Model
     public function pesanans()
     {
         return $this->hasMany(Pesanan::class);
+    }
+
+     public function produkMitras()
+    {
+        return $this->hasMany(ProdukMitra::class);
     }
 }
