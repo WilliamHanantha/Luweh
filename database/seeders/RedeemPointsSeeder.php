@@ -47,23 +47,23 @@ class RedeemPointsSeeder extends Seeder
         // 4. Create partner products
         $products = [
             [
-                'nama_produk' => 'Food Package',
-                'partner' => 'Sinar Djaya Resto',
-                'deskripsi' => 'Food package reward from Sinar Djaya Resto.',
+                'nama_produk' => 'Butter Croissant',
+                'partner' => 'Over The Moon Cafe',
+                'deskripsi' => 'Flaky Butter Croissant reward from Over The Moon Cafe.',
                 'poin_dibutuhkan' => 50,
                 'stok' => 10,
             ],
             [
-                'nama_produk' => 'Meal Voucher',
-                'partner' => 'Royal Kitchen',
-                'deskripsi' => 'Meal voucher reward from Royal Kitchen.',
+                'nama_produk' => 'Sei ayam platter',
+                'partner' => 'Sei Nusantara',
+                'deskripsi' => 'Meal voucher reward from Sei Nusantara.',
                 'poin_dibutuhkan' => 100,
                 'stok' => 10,
             ],
             [
-                'nama_produk' => 'Grocery Package',
-                'partner' => 'Warung Sederhana',
-                'deskripsi' => 'Grocery package reward from Warung Sederhana.',
+                'nama_produk' => 'Everything sandwich',
+                'partner' => 'Subway Serve',
+                'deskripsi' => 'Grocery package reward from Subway Serve.',
                 'poin_dibutuhkan' => 200,
                 'stok' => 10,
             ],
