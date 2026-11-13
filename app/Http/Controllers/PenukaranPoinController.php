@@ -6,28 +6,25 @@ use App\Models\User;
 use App\Models\Kontribusi;
 use App\Models\ProdukMitra;
 use App\Models\PenukaranPoin;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class PenukaranPoinController extends Controller
 {
     /**
-     * Demo courier identification.
-     * Temporary because LUWEH has no authentication system.
+     * Fixed demo courier.
+     * No login or account verification required.
      */
     private function demoCourier(): User
     {
-        $courier = User::where(
-            'email',
-            'demo.courier@luweh.test'
-        )->firstOrFail();
-
-        abort_unless(
-            $courier->role === 'courier',
-            403,
-            'Only couriers can redeem points.'
+        return User::firstOrCreate(
+            ['email' => 'demo.courier@luweh.test'],
+            [
+                'name' => 'Demo Courier',
+                'password' => Hash::make('password'),
+            ]
         );
-
-        return $courier;
     }
 
     /**
@@ -37,10 +34,10 @@ class PenukaranPoinController extends Controller
     {
         $courier = $this->demoCourier();
 
-        $kontribusi = $courier->kontribusi()
-            ->firstOrCreate([], [
-                'total_point' => 0,
-            ]);
+        $kontribusi = Kontribusi::firstOrCreate(
+            ['user_id' => $courier->id],
+            ['total_point' => 150]
+        );
 
         $produkMitras = ProdukMitra::with('restoran')
             ->where('status', true)
@@ -57,14 +54,14 @@ class PenukaranPoinController extends Controller
     /**
      * Display redemption confirmation page.
      */
-    public function confirm($id)
+    public function confirm(Request $request, $id)
     {
         $courier = $this->demoCourier();
 
-        $kontribusi = $courier->kontribusi()
-            ->firstOrCreate([], [
-                'total_point' => 0,
-            ]);
+        $kontribusi = Kontribusi::firstOrCreate(
+            ['user_id' => $courier->id],
+            ['total_point' => 150]
+        );
 
         $produkMitra = ProdukMitra::with('restoran')
             ->findOrFail($id);
@@ -75,11 +72,23 @@ class PenukaranPoinController extends Controller
             $kontribusi->total_point >=
                 $produkMitra->poin_dibutuhkan;
 
+        // Retrieve receipt after successful redemption, if present.
+        $penukaran = null;
+
+        if ($request->filled('receipt')) {
+            $penukaran = PenukaranPoin::with([
+                'produkMitra.restoran'
+            ])
+                ->where('user_id', $courier->id)
+                ->find($request->query('receipt'));
+        }
+
         return view('courier.redeem-confirm', compact(
             'courier',
             'kontribusi',
             'produkMitra',
-            'canRedeem'
+            'canRedeem',
+            'penukaran'
         ));
     }
 
@@ -102,14 +111,12 @@ class PenukaranPoinController extends Controller
             $produkMitra = ProdukMitra::lockForUpdate()
                 ->findOrFail($id);
 
-            // Check product availability
             abort_unless(
                 $produkMitra->status && $produkMitra->stok > 0,
                 409,
                 'Product is currently unavailable.'
             );
 
-            // Check sufficient points
             abort_if(
                 $kontribusi->total_point <
                 $produkMitra->poin_dibutuhkan,
@@ -119,15 +126,15 @@ class PenukaranPoinController extends Controller
 
             $pointsUsed = $produkMitra->poin_dibutuhkan;
 
-            // Deduct contribution points
+            // Deduct contribution points.
             $kontribusi->total_point -= $pointsUsed;
             $kontribusi->save();
 
-            // Reduce product stock
+            // Reduce product stock.
             $produkMitra->stok -= 1;
             $produkMitra->save();
 
-            // Record redemption transaction
+            // Create redemption transaction.
             return PenukaranPoin::create([
                 'user_id' => $courier->id,
                 'produk_mitra_id' => $produkMitra->id,
@@ -135,27 +142,17 @@ class PenukaranPoinController extends Controller
             ]);
         });
 
-        return redirect()
-            ->route('courier.redeem.receipt', $penukaran->id)
-            ->with('success', 'Points successfully redeemed!');
+        // Return to the confirmation page with its receipt.
+        return redirect()->to(
+            url('/courier/redeem-points/' .
+                $id . '/confirm?receipt=' . $penukaran->id)
+        )->with('success', 'Points successfully redeemed!');
     }
 
     /**
-     * Display redemption receipt.
+     * Legacy receipt route.
+     * The main UC14 flow now displays the receipt
+     * directly on the confirmation page.
      */
-    public function receipt($id)
-    {
-        $courier = $this->demoCourier();
-
-        $penukaran = PenukaranPoin::with([
-            'produkMitra.restoran'
-        ])
-            ->where('user_id', $courier->id)
-            ->findOrFail($id);
-
-        return view('courier.redeem-receipt', compact(
-            'courier',
-            'penukaran'
-        ));
-    }
+    
 }

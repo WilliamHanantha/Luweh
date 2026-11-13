@@ -52,9 +52,8 @@ Route::group(['prefix' => 'courier'], function () {
     Route::post('/order/{id}/deliver', [\App\Http\Controllers\CourierController::class, 'deliverOrder'])->name('courier.order.deliver');
 
     // UC14 - Redeem Points
-    Route::get('/redeem-points', [PenukaranPoinController::class, 'index'])->name('courier.redeem');
-    Route::get('/redeem-points/{id}/confirm', [PenukaranPoinController::class, 'confirm'])->whereNumber('id')->name('courier.redeem.confirm');
-    Route::post('/redeem-points/{id}/redeem', [PenukaranPoinController::class, 'redeem'])->whereNumber('id')->name('courier.redeem.store');
-    Route::get('/redeem-points/receipt/{id}', [PenukaranPoinController::class, 'receipt'])->whereNumber('id')->name('courier.redeem.receipt');
+Route::get('/redeem-points', [\App\Http\Controllers\PenukaranPoinController::class, 'index'])->name('courier.redeem');
+Route::get('/redeem-points/{id}/confirm', [\App\Http\Controllers\PenukaranPoinController::class, 'confirm'])->name('courier.redeem.confirm');
+Route::post('/redeem-points/{id}/redeem', [\App\Http\Controllers\PenukaranPoinController::class, 'redeem'])->name('courier.redeem.store'); 
 
 });
