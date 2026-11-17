@@ -10,6 +10,15 @@ Route::get('/', function () {
 // UC 01
 Route::get('/customer-home', [App\Http\Controllers\RestoranController::class, 'index']);
 
+
+ // UC07 - Milestone / Sertifikat Kontribusi
+Route::get('/milestone', [\App\Http\Controllers\MilestoneController::class, 'index'])
+    ->name('milestone');
+
+Route::post('/milestone/download', [\App\Http\Controllers\MilestoneController::class, 'downloadCertificate'])
+    ->name('milestone.download');
+
+
 // UC 02
 Route::get('/order-now', [App\Http\Controllers\OrderNowController::class, 'index']);
 Route::post('/order-now/item/{id}/tambah', [App\Http\Controllers\OrderNowController::class, 'tambah']);
