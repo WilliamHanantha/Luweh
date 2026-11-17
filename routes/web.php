@@ -15,12 +15,10 @@ Route::get('/order-now', [App\Http\Controllers\OrderNowController::class, 'index
 Route::post('/order-now/item/{id}/tambah', [App\Http\Controllers\OrderNowController::class, 'tambah']);
 Route::post('/order-now/item/{id}/kurang', [App\Http\Controllers\OrderNowController::class, 'kurang']);
 
-Route::post('/order-now/item/{id}/kurang', [App\Http\Controllers\OrderNowController::class, 'kurang']);
-
 // UC 01 & UC 02: Food List
 Route::get('/food-list/{restoran}', [App\Http\Controllers\FoodListController::class, 'index']);
 Route::post('/food-list/{restoran}/makanan/{makanan}/tambah', [App\Http\Controllers\FoodListController::class, 'tambah']);
-
+Route::post('/food-list/{restoran}/makanan/{makanan}/hapus', [App\Http\Controllers\FoodListController::class, 'hapus']);
 Route::get('/beli', [App\Http\Controllers\FoodListController::class, 'beli']);
 
 Route::get('/your-menu', [App\Http\Controllers\DaftarMakananController::class, 'index']);
