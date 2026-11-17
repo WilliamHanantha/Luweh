@@ -1,41 +1,57 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Home - LUWEH</title>
+@extends('layouts.app')
+
+@section('title', 'Customer Home')
+
+@section('page-subtitle', 'Hello!')
+
+@section('page-heading', 'Save the Food, now!')
+
+@push('styles')
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; background: #f4f6ef; color: #3a4a1a; }
-        header { background: #556b16; color: #fff; padding: 16px 24px; font-weight: bold; font-size: 20px; }
-        main { max-width: 480px; margin: 0 auto; padding: 16px; }
-        .sapaan { background: #8a9f2e; color: #fff; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-        .resto { display: block; background: #fff; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; text-decoration: none; color: inherit; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
-        .resto h3 { margin: 0 0 4px; }
-        .info { font-size: 14px; color: #6b7a3a; }
+        .resto-search { background: #fff; border-radius: 40px; padding: 6px 16px; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+        .resto-title { color: #556b16; }
+        .resto-viewall { color: #8a9f2e; font-weight: 600; font-size: 14px; }
+        .resto-card { background: #fff; border: 1px solid #dfe5c8; border-radius: 24px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+        .resto-img { height: 140px; background: #e9eed4; }
+        .resto-img img { width: 100%; height: 100%; object-fit: cover; }
+        .resto-body { padding: 10px 16px; }
+        .resto-name { font-weight: 700; color: #556b16; }
+        .resto-dist { font-size: 13px; color: #8a9f2e; }
+        .resto-rating { font-size: 13px; font-weight: 700; color: #8a9f2e; }
     </style>
-</head>
-<body>
-    <header>LUWEH</header>
+@endpush
 
-    <main>
-        <div class="sapaan">
-            <div>Hello!</div>
-            <strong>Save the Food, now!</strong>
-        </div>
+@section('content')
+    {{-- Search bar: tampilan saja, belum berfungsi --}}
+    <div class="resto-search mb-4">
+        <input type="text" class="form-control border-0 shadow-none" placeholder="Search food here" disabled>
+    </div>
 
-        <h2>Recommendation</h2>
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h5 class="resto-title fw-bold mb-0">Recommendation</h5>
+        <a href="#" class="resto-viewall text-decoration-none">View All</a>
+    </div>
 
-        @forelse ($restorans as $resto)
-            <a href="#" class="resto">
-                <h3>{{ $resto->nama_resto }}</h3>
-                <div class="info">
-                    {{ number_format($resto->jarak, 1) }} km &middot; ★ {{ number_format($resto->rating, 1) }}
+    @forelse ($restorans as $resto)
+        <a href="#" class="resto-card d-block text-decoration-none mb-3">
+            <div class="resto-img">
+                <img src="{{ asset('assets/images/food-placeholder.svg') }}" alt="{{ $resto->nama_resto }}">
+            </div>
+            <div class="resto-body d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="resto-name">{{ $resto->nama_resto }}</div>
+                    <div class="resto-dist">{{ number_format($resto->jarak, 1) }} km</div>
                 </div>
-                <div class="info">{{ $resto->alamat }}</div>
-            </a>
-        @empty
-            <p>Belum ada restoran.</p>
-        @endforelse
-    </main>
-</body>
-</html>
+                <div class="resto-rating">{{ number_format($resto->rating, 1) }} &#9733;</div>
+            </div>
+        </a>
+    @empty
+        <div class="text-center py-5">
+            <h5 class="fw-semibold text-secondary">Belum ada restoran</h5>
+        </div>
+    @endforelse
+
+    <div class="text-center mt-4 mb-5">
+        <a href="/order-now" class="btn btn-warning rounded-pill px-4">Lihat Keranjang</a>
+    </div>
+@endsection
