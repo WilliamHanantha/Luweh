@@ -1,63 +1,73 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Now - LUWEH</title>
+@extends('layouts.app')
+
+@section('title', 'Order Now')
+
+@section('back-url', url('/customer-home'))
+
+@section('page-heading', 'Order Now')
+
+@push('styles')
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; background: #f4f6ef; color: #3a4a1a; }
-        header { background: #556b16; color: #fff; padding: 16px 24px; font-weight: bold; font-size: 20px; }
-        main { max-width: 480px; margin: 0 auto; padding: 16px; }
-        .item { display: flex; justify-content: space-between; align-items: center; background: #fff; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
-        .item h3 { margin: 0 0 4px; }
-        .harga { font-size: 14px; color: #6b7a3a; }
+        .order-resto { color: #6b8a1f; font-weight: 700; margin-bottom: 16px; }
+        .order-card { display: flex; justify-content: space-between; gap: 12px; background: #eef2e2; border: 1px solid #dfe5c8; border-radius: 32px; padding: 18px 22px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,.1); }
+        .order-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
+        .order-name { font-size: 22px; font-weight: 800; color: #4f6a12; margin: 0 0 6px; padding-bottom: 8px; border-bottom: 2px solid #c9d49a; }
+        .order-stock { font-weight: 700; color: #4f6a12; margin-bottom: 14px; }
+        .order-amount { font-weight: 700; color: #8a9f2e; font-size: 18px; }
+        .order-side { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; gap: 12px; }
+        .order-img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; background: #6b8a1f; }
         .qty { display: flex; align-items: center; gap: 8px; }
         .qty form { margin: 0; }
-        .qty button { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #556b16; background: #fff; color: #556b16; font-size: 18px; cursor: pointer; }
-        .total { text-align: right; font-weight: bold; margin-top: 16px; }
+        .qty-btn { width: 28px; height: 28px; border-radius: 50%; border: 0; background: #8a9f2e; color: #fff; font-size: 18px; font-weight: 700; line-height: 1; cursor: pointer; padding: 0; }
+        .qty-num { min-width: 28px; height: 28px; border: 1px solid #8a9f2e; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; color: #4f6a12; }
+        .order-actions { display: flex; flex-direction: column; align-items: center; gap: 12px; margin: 28px 0 40px; }
+        .btn-pill-green { width: 190px; background: #556b16; color: #fff; border: 0; border-radius: 30px; padding: 10px 0; font-weight: 700; box-shadow: 0 3px 6px rgba(0,0,0,.2); }
     </style>
-</head>
-<body>
-    <header>LUWEH</header>
+@endpush
 
-    <main>
-        <h2>Order Now</h2>
+@section('content')
+    @if ($pesanan && $pesanan->itemPesanans->count() > 0)
+        <div class="order-resto">{{ $pesanan->restoran->nama_resto ?? 'Restaurant' }}</div>
 
-        @if ($pesanan && $pesanan->itemPesanans->count() > 0)
-            @if ($pesanan->restoran)
-                <p><strong>{{ $pesanan->restoran->nama_resto }}</strong></p>
-            @endif
-
-            @foreach ($pesanan->itemPesanans as $item)
-                <div class="item">
+        @foreach ($pesanan->itemPesanans as $item)
+            <div class="order-card">
+                <div class="order-info">
                     <div>
-                        <h3>{{ $item->daftarMakanan->nama_makanan }}</h3>
-                        <div class="harga">Rp {{ number_format($item->daftarMakanan->harga, 0, ',', '.') }}</div>
+                        <h4 class="order-name">{{ $item->daftarMakanan->nama_makanan }}</h4>
+                        <div class="order-stock">Stock: {{ $item->daftarMakanan->stok }}</div>
                     </div>
+                    <div class="order-amount">Amount</div>
+                </div>
+
+                <div class="order-side">
+                    <img src="{{ asset('assets/images/food-placeholder.svg') }}" alt="{{ $item->daftarMakanan->nama_makanan }}" class="order-img">
 
                     <div class="qty">
                         <form action="/order-now/item/{{ $item->id }}/kurang" method="POST">
                             @csrf
-                            <button type="submit">-</button>
+                            <button type="submit" class="qty-btn" aria-label="Kurangi">&minus;</button>
                         </form>
 
-                        <span>{{ $item->kuantitas }}</span>
+                        <span class="qty-num">{{ $item->kuantitas }}</span>
 
                         <form action="/order-now/item/{{ $item->id }}/tambah" method="POST">
                             @csrf
-                            <button type="submit">+</button>
+                            <button type="submit" class="qty-btn" aria-label="Tambah">+</button>
                         </form>
                     </div>
                 </div>
-            @endforeach
-
-            <div class="total">
-                Total: Rp {{ number_format($pesanan->itemPesanans->sum(fn ($i) => $i->daftarMakanan->harga * $i->kuantitas), 0, ',', '.') }}
             </div>
-        @else
-            <p>Keranjang masih kosong.</p>
-            <a href="/customer-home">Kembali ke Customer Home</a>
-        @endif
-    </main>
-</body>
-</html>
+        @endforeach
+
+        {{-- Tampilan saja: checkout (UC03) belum dikerjakan --}}
+        <div class="order-actions">
+            <button type="button" class="btn-pill-green">Pick-Up</button>
+            <button type="button" class="btn-pill-green">Delivery</button>
+        </div>
+    @else
+        <div class="text-center py-5">
+            <h5 class="fw-semibold text-secondary">Keranjang masih kosong</h5>
+            <a href="/customer-home" class="btn btn-warning rounded-pill px-4 mt-3">Kembali ke Customer Home</a>
+        </div>
+    @endif
+@endsection
