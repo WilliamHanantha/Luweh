@@ -15,6 +15,14 @@ Route::get('/order-now', [App\Http\Controllers\OrderNowController::class, 'index
 Route::post('/order-now/item/{id}/tambah', [App\Http\Controllers\OrderNowController::class, 'tambah']);
 Route::post('/order-now/item/{id}/kurang', [App\Http\Controllers\OrderNowController::class, 'kurang']);
 
+Route::post('/order-now/item/{id}/kurang', [App\Http\Controllers\OrderNowController::class, 'kurang']);
+
+// UC 01 & UC 02: Food List
+Route::get('/food-list/{restoran}', [App\Http\Controllers\FoodListController::class, 'index']);
+Route::post('/food-list/{restoran}/makanan/{makanan}/tambah', [App\Http\Controllers\FoodListController::class, 'tambah']);
+
+Route::get('/beli', [App\Http\Controllers\FoodListController::class, 'beli']);
+
 Route::get('/your-menu', [App\Http\Controllers\DaftarMakananController::class, 'index']);
 Route::get('/set-quantity/{id}', [App\Http\Controllers\DaftarMakananController::class, 'setQuantity']);
 Route::post('/set-quantity/{id}', [App\Http\Controllers\DaftarMakananController::class, 'confirmQuantity']);
@@ -54,6 +62,6 @@ Route::group(['prefix' => 'courier'], function () {
     // UC14 - Redeem Points
 Route::get('/redeem-points', [\App\Http\Controllers\PenukaranPoinController::class, 'index'])->name('courier.redeem');
 Route::get('/redeem-points/{id}/confirm', [\App\Http\Controllers\PenukaranPoinController::class, 'confirm'])->name('courier.redeem.confirm');
-Route::post('/redeem-points/{id}/redeem', [\App\Http\Controllers\PenukaranPoinController::class, 'redeem'])->name('courier.redeem.store'); 
+Route::post('/redeem-points/{id}/redeem', [\App\Http\Controllers\PenukaranPoinController::class, 'redeem'])->name('courier.redeem.store');
 
 });

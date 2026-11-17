@@ -33,7 +33,7 @@
     </div>
 
     @forelse ($restorans as $resto)
-        <a href="#" class="resto-card d-block text-decoration-none mb-3">
+        <a href="/food-list/{{ $resto->id }}" class="resto-card d-block text-decoration-none mb-3">
             <div class="resto-img">
                 <img src="{{ asset('assets/images/food-placeholder.svg') }}" alt="{{ $resto->nama_resto }}">
             </div>
