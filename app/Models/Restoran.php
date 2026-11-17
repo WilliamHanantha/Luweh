@@ -14,6 +14,11 @@ class Restoran extends Model
         return $this->hasMany(Pesanan::class);
     }
 
+    public function daftarMakanans()
+    {
+        return $this->hasMany(DaftarMakanan::class);
+    }
+
      public function produkMitras()
     {
         return $this->hasMany(ProdukMitra::class);
