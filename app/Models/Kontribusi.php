@@ -27,4 +27,10 @@ class Kontribusi extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function sertifikatDigitals()
+    {
+        return $this->hasMany(SertifikatDigital::class, 'kontribusi_id');
+    }
+
 }

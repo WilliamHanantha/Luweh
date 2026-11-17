@@ -10,6 +10,15 @@ Route::get('/', function () {
 // UC 01
 Route::get('/customer-home', [App\Http\Controllers\RestoranController::class, 'index']);
 
+
+ // UC07 - Milestone / Sertifikat Kontribusi
+Route::get('/milestone', [\App\Http\Controllers\MilestoneController::class, 'index'])
+    ->name('milestone');
+
+Route::post('/milestone/download', [\App\Http\Controllers\MilestoneController::class, 'downloadCertificate'])
+    ->name('milestone.download');
+
+
 // UC 02
 Route::get('/order-now', [App\Http\Controllers\OrderNowController::class, 'index']);
 Route::post('/order-now/item/{id}/tambah', [App\Http\Controllers\OrderNowController::class, 'tambah']);
@@ -54,6 +63,6 @@ Route::group(['prefix' => 'courier'], function () {
     // UC14 - Redeem Points
 Route::get('/redeem-points', [\App\Http\Controllers\PenukaranPoinController::class, 'index'])->name('courier.redeem');
 Route::get('/redeem-points/{id}/confirm', [\App\Http\Controllers\PenukaranPoinController::class, 'confirm'])->name('courier.redeem.confirm');
-Route::post('/redeem-points/{id}/redeem', [\App\Http\Controllers\PenukaranPoinController::class, 'redeem'])->name('courier.redeem.store'); 
+Route::post('/redeem-points/{id}/redeem', [\App\Http\Controllers\PenukaranPoinController::class, 'redeem'])->name('courier.redeem.store');
 
 });
