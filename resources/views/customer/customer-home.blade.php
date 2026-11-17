@@ -50,8 +50,4 @@
             <h5 class="fw-semibold text-secondary">Belum ada restoran</h5>
         </div>
     @endforelse
-
-    <div class="text-center mt-4 mb-5">
-        <a href="/order-now" class="btn btn-warning rounded-pill px-4">Lihat Keranjang</a>
-    </div>
 @endsection

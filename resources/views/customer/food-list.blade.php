@@ -30,6 +30,9 @@
         .food-buy { display: block; width: 220px; margin: 28px auto 40px; text-align: center; background: #ffd62e; color: #4f6a12; border-radius: 30px; padding: 12px 0; font-weight: 800; letter-spacing: .5px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,.2); transition: transform .15s ease, box-shadow .15s ease; }
         .food-buy:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,.25); color: #4f6a12; }
         .food-buy:active { transform: translateY(0); }
+
+        .food-add.food-added { cursor: pointer; }
+        .food-add.food-added:hover { background: #c0392b; transform: scale(1.1); box-shadow: 0 5px 10px rgba(0,0,0,.25); }
     </style>
 @endpush
 
@@ -52,7 +55,10 @@
                      onerror="this.onerror=null;this.src='{{ asset('assets/images/food-placeholder.svg') }}';">
 
                 @if (in_array($makanan->id, $dalamKeranjang))
-                    <span class="food-add food-added" title="Sudah di keranjang" aria-label="Sudah di keranjang">&#10003;</span>
+                    <form action="/food-list/{{ $restoran->id }}/makanan/{{ $makanan->id }}/hapus" method="POST">
+                        @csrf
+                        <button type="submit" class="food-add food-added" title="Hapus dari keranjang" aria-label="Hapus dari keranjang">&#10003;</button>
+                    </form>
                 @else
                     <form action="/food-list/{{ $restoran->id }}/makanan/{{ $makanan->id }}/tambah" method="POST">
                         @csrf
