@@ -48,11 +48,33 @@
 
 
 {{-- UC07: Download Certificate --}}
+
+{{-- UC07: Insert Form Penerbitan Sertifikat --}}
 <form action="{{ route('milestone.download') }}"
       method="POST"
       class="milestone-certificate-form">
 
     @csrf
+
+    <label for="nama_penerima" class="milestone-form-label">
+        Nama Penerima Sertifikat
+    </label>
+
+    <input
+        type="text"
+        id="nama_penerima"
+        name="nama_penerima"
+        class="milestone-name-input"
+        placeholder="Masukkan nama penerima"
+        value="{{ old('nama_penerima') }}"
+        maxlength="255"
+        required
+        @disabled(!$eligible)
+    >
+
+    @error('nama_penerima')
+        <p class="milestone-message">{{ $message }}</p>
+    @enderror
 
     <button type="submit"
             class="milestone-btn {{ $eligible ? 'milestone-btn-ready' : 'milestone-btn-locked' }}"
@@ -151,11 +173,40 @@
     }
 
 
+
     .milestone-certificate-form {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
     }
+
+    .milestone-form-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #526f12;
+    }
+
+    .milestone-name-input {
+        width: 80%;
+        max-width: 245px;
+        padding: 11px 15px;
+        border: 1px solid #b7c69c;
+        border-radius: 12px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .milestone-name-input:focus {
+        outline: 2px solid #9cba56;
+    }
+
+    .milestone-name-input:disabled {
+        background: #eeeeee;
+    }
+
 
 
     .milestone-btn {

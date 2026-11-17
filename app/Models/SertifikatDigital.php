@@ -11,12 +11,15 @@ class SertifikatDigital extends Model
     protected $table = 'sertifikat_digitals';
 
     // Atribut yang boleh diisi melalui Model
+
     protected $fillable = [
         'kontribusi_id',
+        'nama_penerima',
         'total_food_saved',
         'file_path',
         'issued_at',
     ];
+
 
     // Konversi tipe data
     protected function casts(): array

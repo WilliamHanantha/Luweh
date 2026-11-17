@@ -7,6 +7,7 @@ use App\Models\SertifikatDigital;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class MilestoneController extends Controller
 {
@@ -42,10 +43,18 @@ class MilestoneController extends Controller
     }
 
 
-public function downloadCertificate()
+public function downloadCertificate(Request $request)
 {
     // Hanya untuk pengujian akun demo di lingkungan lokal
     abort_unless(app()->environment('local'), 403);
+
+
+    $validated = $request->validate([
+        'nama_penerima' => ['required', 'string', 'max:255'],
+    ]);
+
+$namaPenerima = trim($validated['nama_penerima']);
+
 
     // Mengambil data Demo Customer dan kontribusinya
     $customer = User::with('kontribusi')
@@ -80,7 +89,7 @@ public function downloadCertificate()
 
     // Menghasilkan PDF dari template Blade
     $pdf = Pdf::loadView('certificates.luweh', [
-        'namaPenerima' => $customer->name,
+        'namaPenerima' => $namaPenerima,
         'totalFoodSaved' => $totalFoodSaved,
         'totalPoin' => $totalPoin,
         'tanggalTerbit' => $tanggal->format('d-m-Y'),
@@ -99,12 +108,15 @@ public function downloadCertificate()
 
     try {
         // Menyimpan riwayat penerbitan ke MySQL
-        SertifikatDigital::create([
-            'kontribusi_id' => $kontribusi->id,
-            'total_food_saved' => $totalFoodSaved,
-            'file_path' => $filePath,
-            'issued_at' => $tanggal,
-        ]);
+
+    SertifikatDigital::create([
+        'kontribusi_id' => $kontribusi->id,
+        'nama_penerima' => $namaPenerima,
+        'total_food_saved' => $totalFoodSaved,
+        'file_path' => $filePath,
+        'issued_at' => $tanggal,
+    ]);
+
     } catch (\Throwable $e) {
         // Hapus file jika penyimpanan riwayat gagal
         Storage::disk('local')->delete($filePath);
